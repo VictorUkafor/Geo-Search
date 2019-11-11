@@ -1,0 +1,25 @@
+{
+  "name": "geo-search",
+  "version": "1.0.0",
+  "description": "Application for searching places",
+  "main": "index.js",
+  "repository": "git@github.com:VictorUkafor/Geo-Search.git",
+  "author": "Victor Ukafor <victorukafor@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "gulp": "gulp"
+  },
+  "devDependencies": {
+    "@babel/core": "7.7.2",
+    "babel-cli": "6.26.0",
+    "babel-preset-env": "1.7.0",
+    "browser-sync": "2.26.7",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "gulp": "3.9.1",
+    "gulp-babel": "8.0.0",
+    "gulp-eslint": "^6.0.0",
+    "gulp-uglify": "3.0.2",
+    "run-sequence": "2.2.1"
+  }
+}

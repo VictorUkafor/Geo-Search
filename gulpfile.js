@@ -1,7 +1,9 @@
 const gulp = require('gulp');
+const autoprefixer = require('gulp-autoprefixer');
+const csso = require('gulp-csso');
 const eslint = require('gulp-eslint');
 const babel = require('gulp-babel');
-const uglify = require('gulp-uglify');
+const uglify = require('gulp-uglify-es').default;
 const runSequence = require('run-sequence').use(gulp);
 const browserSync = require('browser-sync').create();
 
@@ -16,10 +18,12 @@ gulp.task('processHTML', done => {
 // task for processing CSS files
 gulp.task('processCSS', done => {
     gulp.src('src/css/*.css')
-    .pipe(uglify())
+    .pipe(autoprefixer())
+    .pipe(csso())
     .pipe(gulp.dest('dist/css'));
     done();
 });
+
 
 // task for processing image files
 gulp.task('processImage', done => {
@@ -30,13 +34,14 @@ gulp.task('processImage', done => {
 
 // task for processing JS files
 gulp.task('processJS', done => {
-    gulp.src(['src/js/*.js'])
+    gulp.src('./src/js/*.*')
     .pipe(eslint())
+    .pipe(eslint({ fix: true }))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError())
-    .pipe(babel({ presets: ['env']}))
+    .pipe(babel({ presets: ['@babel/env']}))
     .pipe(uglify())
-    .pipe(gulp.dest('dist/js'));
+    .pipe(gulp.dest('./dist/js'));
     done();
   });
 

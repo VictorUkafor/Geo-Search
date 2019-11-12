@@ -11,7 +11,6 @@ body{
     background-blend-mode: multiply;
 }
 
-
 #logo{
     font-family: 'Tangerine', serif;
     font-size: 3.5em;
@@ -19,11 +18,9 @@ body{
     color: #fff;
 }
 
-
 .geo{
     color: #e63830; 
 }
-
 
 .bg-logo{
     font-family: 'Tangerine', serif;
@@ -31,10 +28,13 @@ body{
     font-weight: 500;
 }
 
-.content{
-    margin-top: 8em;
+.content .intro{
+    margin-top: 7em;
 }
 
+.content{
+    margin-bottom: 4em;
+}
 
 .content h1{
     color: #fff;
@@ -44,7 +44,6 @@ body{
     text-align: center;
     margin-bottom: 0.7px;
 }
-
 
 .content p{
     color: #fff;
@@ -72,6 +71,7 @@ body{
     height: 3em;
     width: 80%;
     font-family: 'Roboto';
+    outline: none;
 }
 
 
@@ -83,6 +83,8 @@ body{
     font-family: 'Comfortaa';
     width: 20%;
     font-weight: bold;
+    cursor: pointer;
+    outline: none;
 }
 
 
@@ -96,6 +98,7 @@ body{
     flex-wrap: wrap;
     width: 90%;
     margin-left: 5%;
+    margin-bottom: -2em;
 }
 
 
@@ -164,6 +167,58 @@ footer a:hover{
 }
 
 
+.no-text{
+    opacity: 0.8;
+    cursor: default;
+}
+
+.result-field{
+    width: 75%;
+    float: right;
+    margin-top: 0px;
+}
+
+.search-field2{
+    font-family: 'Comfortaa';
+    padding-left: 10px;
+    border: 0;
+    height: 3em;
+    width: 80%;
+    font-family: 'Roboto';
+}
+
+
+.search-button2{
+    border: 0;
+    height: 3.15em;
+    background-color: #e63830;
+    color: #fff;
+    font-family: 'Comfortaa';
+    width: 20%;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+.logo2{
+    margin-bottom: -2.1em;
+    font-size: 2em;
+}
+
+.centering2{
+    padding-bottom: 35em;
+}
+
+.not-found{
+    font-size: 4em;
+    margin-top: 4em;
+}
+
+.bad-text{
+    color: red;
+}
+
+
 
 
 
@@ -185,6 +240,10 @@ footer a:hover{
 
 /* tablets */
 @media screen and (max-width: 800px) {
+    .content .intro{
+        margin-top: 9.5em;
+    }  
+
     .content h1{
         font-size: 2em;
         text-align: center;
@@ -221,6 +280,10 @@ footer a:hover{
         margin: 0 3%;
         margin-bottom: 2em;
     }   
+
+    .content .intro{
+        margin-top: 3.5em;
+    }  
 
 
     body{

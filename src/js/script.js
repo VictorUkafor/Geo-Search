@@ -1,7 +1,7 @@
 const featureList = [
     {
         fa: 'fa-search',
-        heading: 'Quick comprehensive search',
+        heading: 'Quick search',
         paragraph: `It is a long established fact that 
         a reader will be distracted by the readable content
         of a page when looking at its layout. The point of 
@@ -10,7 +10,7 @@ const featureList = [
     },
     {
         fa: 'fa-cloud',
-        heading: 'View weather conditions',
+        heading: 'local weather conditions',
         paragraph: `It is a long established fact that 
         a reader will be distracted by the readable content
         of a page when looking at its layout. The point of 
@@ -37,7 +37,7 @@ const featureList = [
     },
     {
         fa: 'fa-map-marker',
-        heading: 'View postal code',
+        heading: 'Postal code',
         paragraph: `It is a long established fact that 
         a reader will be distracted by the readable content
         of a page when looking at its layout. The point of 
@@ -78,6 +78,14 @@ const button = document.createElement('button');
 const features = document.createElement('div');
 const footer = document.createElement('footer');
 const notFound = document.createElement('h1');
+const resultFeature = document.createElement('div');
+const resultMap = document.createElement('div');
+const result = document.createElement('div');
+const mapMarker = document.createElement('i');
+const cancel = document.createElement('i');
+const weather = document.createElement('div');
+const temp = document.createElement('div');
+const share = document.createElement('div');
 
 centering.setAttribute('id', 'centering');
 
@@ -100,7 +108,7 @@ introSecSpan.appendChild(firstSubSpan);
 introSecSpan.appendChild(secSubSpan);
 
 introHeading.appendChild(introSecSpan);
-introParagraph.textContent = `See and implore interesting
+introParagraph.textContent = `Search and implore interesting
  places around the globe. Share your experience`;
 
 intro.classList.add('intro');
@@ -113,7 +121,7 @@ input.setAttribute('name', 'search');
 input.setAttribute('id', 'field-search');
 input.classList.add('search-field');
 button.setAttribute('type', 'submit');
-button.textContent = 'Search';
+button.textContent = 'Explore';
 button.classList.add('search-button');
 formDiv.appendChild(input);
 formDiv.appendChild(button);
@@ -161,11 +169,7 @@ index.appendChild(footer);
 
 
 
-const resultFeature = document.createElement('div');
-const resultMap = document.createElement('div');
-const result = document.createElement('div');
-const mapMarker = document.createElement('i');
-const cancel = document.createElement('i');
+
 
 
 window.addEventListener('load', () => {
@@ -217,7 +221,13 @@ form.addEventListener('submit', (e) => {
         centering.append(result);
         mapMarker.classList.add('fa', 'fa-map-marker', 'map-marker');
         resultFeature.classList.add('result-features');
+        weather.classList.add('weather-feature');
+        temp.classList.add('temp-feature');
+        share.classList.add('share-feature');
         resultMap.classList.add('result-map');
+        resultFeature.appendChild(weather);
+        resultFeature.appendChild(temp);
+        resultFeature.appendChild(share);
         resultMap.appendChild(mapMarker);
         result.appendChild(resultFeature);
         result.appendChild(resultMap)

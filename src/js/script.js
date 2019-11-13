@@ -161,6 +161,12 @@ index.appendChild(footer);
 
 
 
+const resultFeature = document.createElement('div');
+const resultMap = document.createElement('div');
+const result = document.createElement('div');
+const mapMarker = document.createElement('i');
+const cancel = document.createElement('i');
+
 
 window.addEventListener('load', () => {
     if(!input.value){
@@ -174,6 +180,7 @@ window.addEventListener('load', () => {
 
 
 input.addEventListener('input', () => {
+    
     if(input.value.trim()){
         button.removeAttribute('disabled');
         button.classList.remove('no-text');
@@ -181,24 +188,39 @@ input.addEventListener('input', () => {
         button.setAttribute('disabled', 'disabled');
         button.classList.add('no-text');
     }
+    form.removeChild(cancel);
 })
+
+cancel.addEventListener('click', () => {
+    input.value = '';
+    form.removeChild(cancel);
+});
 
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     if(input.value.trim()){
+        cancel.classList.add('fa', 'fa-times-circle', 'cancel');
+        form.appendChild(cancel);
         section.removeChild(intro);
         section.removeChild(features);
-        section.classList.add('centering2');
         form.classList.add('result-field');
         input.classList.remove('search-field');
-        input.classList.add('search-field2');
+        input.classList.add('search-field2', 'remove-outline');
         button.classList.remove('search-button');
-        button.classList.add('search-button2');
+        button.classList.add('search-button2', 'remove-outline');
         header.firstElementChild.classList.add('logo2');
         notFound.classList.add('not-found');
         notFound.textContent = `${input.value} Not Found!`;
-        
-        form.append(notFound);
+        result.classList.add('result');
+        section.classList.add('section2');
+        centering.append(result);
+        mapMarker.classList.add('fa', 'fa-map-marker', 'map-marker');
+        resultFeature.classList.add('result-features');
+        resultMap.classList.add('result-map');
+        resultMap.appendChild(mapMarker);
+        result.appendChild(resultFeature);
+        result.appendChild(resultMap)
+        //result.appendChild(notFound);
     }
 })

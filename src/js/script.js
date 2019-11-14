@@ -95,6 +95,15 @@ const conditions = [
 ];
 
 
+const images = [
+    'img/lag1.jpg',
+    'img/lag2.jpg',
+    'img/lag3.jpg',
+    'img/lag4.jpg',
+    'img/lag5.jpg'
+];
+
+
 const index = document.querySelector('#index');
 const centering = document.createElement('div');
 const header = document.createElement('header');
@@ -129,6 +138,8 @@ const tempButton = document.createElement('button');
 const shareButton = document.createElement('button');
 const conditionDiv = document.createElement('div');
 const conditionList = document.createElement('ul');
+const landMark = document.createElement('div');
+
 
 centering.setAttribute('id', 'centering');
 
@@ -264,6 +275,7 @@ form.addEventListener('submit', (e) => {
         result.classList.add('result');
         section.classList.add('section2');
         centering.append(result);
+        centering.append(landMark);
         mapMarker.classList.add('fa', 'fa-map-marker', 'map-marker');
         resultFeature.classList.add('result-features');
         weather.classList.add('weather-feature');
@@ -287,6 +299,13 @@ form.addEventListener('submit', (e) => {
         });
 
 
+        images.forEach((img) => {
+            const imageDiv = document.createElement('div');
+            imageDiv.style.backgroundImage = `url(${img})`;
+            landMark.appendChild(imageDiv);
+        });
+
+
         temp.classList.add('temp-feature');
         share.classList.add('share-feature');
         resultMap.classList.add('result-map');
@@ -307,6 +326,8 @@ form.addEventListener('submit', (e) => {
         `<i class="fa fa-facebook thermo"></i>
         <span class="thermo-span">Share to Facebook</span>`;
         share.appendChild(shareButton);
+        landMark.classList.add('land-mark');
+
         //result.appendChild(notFound);
     }
 })

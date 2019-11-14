@@ -56,6 +56,44 @@ const featureList = [
 ];
 
 
+const conditions = [
+    {
+        name: 'Temperature',
+        value: '37',
+        unit: '&#176;C',
+    },
+    {
+        name: 'Cloud Cover',
+        value: '1',
+        unit: ''
+    },
+    {
+        name: 'Pressure',
+        value: '37',
+        unit: 'mb',
+    },
+    {
+        name: 'Precipitation',
+        value: '10',
+        unit: 'inch',
+    }, 
+    {
+        name: 'Visibility',
+        value: '8',
+        unit: 'mi',
+    },
+    {
+        name: 'Humidity',
+        value: '1',
+        unit: '',
+    },  
+    {
+        name: 'Wind Speed',
+        value: '6',
+        unit: 'mi/hr',
+    }, 
+];
+
 
 const index = document.querySelector('#index');
 const centering = document.createElement('div');
@@ -86,15 +124,22 @@ const cancel = document.createElement('i');
 const weather = document.createElement('div');
 const temp = document.createElement('div');
 const share = document.createElement('div');
+const logoLink = document.createElement('a');
+const tempButton = document.createElement('button');
+const shareButton = document.createElement('button');
+const conditionDiv = document.createElement('div');
+const conditionList = document.createElement('ul');
 
 centering.setAttribute('id', 'centering');
 
+logoLink.setAttribute('href', 'index.html');
 headerFirstSpan.textContent = 'Geo';
 headerFirstSpan.classList.add('geo');
 headerSecSpan.textContent = 'Search';
-headerHeading.appendChild(headerFirstSpan);
-headerHeading.appendChild(headerSecSpan);
+logoLink.appendChild(headerFirstSpan);
+logoLink.appendChild(headerSecSpan);
 headerHeading.setAttribute('id', 'logo');
+headerHeading.appendChild(logoLink);
 header.appendChild(headerHeading);
 
 introFirstSpan.textContent = 'Welcome to ';
@@ -108,7 +153,7 @@ introSecSpan.appendChild(firstSubSpan);
 introSecSpan.appendChild(secSubSpan);
 
 introHeading.appendChild(introSecSpan);
-introParagraph.textContent = `Search and implore interesting
+introParagraph.textContent = `Search and explore interesting
  places around the globe. Share your experience`;
 
 intro.classList.add('intro');
@@ -222,6 +267,26 @@ form.addEventListener('submit', (e) => {
         mapMarker.classList.add('fa', 'fa-map-marker', 'map-marker');
         resultFeature.classList.add('result-features');
         weather.classList.add('weather-feature');
+        weather.innerHTML = `<i class="fa fa-cloud weather-cloud"></i>`;
+        
+        conditionDiv.classList.add('condition-box');
+        conditionDiv.appendChild(conditionList);
+        weather.appendChild(conditionDiv);
+
+        conditions.forEach((cond) => {
+            const conditionListItem = document.createElement('li');
+
+            conditionListItem.innerHTML = 
+            `<i class="fa fa-circle condition-symbol"></i>
+            <span class="condition-name">${cond.name}:</span>
+            <span class="condition-value">${cond.value}
+            <span class="condition-unit">${cond.unit}</span></span>`;
+
+            conditionList.appendChild(conditionListItem);
+
+        });
+
+
         temp.classList.add('temp-feature');
         share.classList.add('share-feature');
         resultMap.classList.add('result-map');
@@ -231,6 +296,17 @@ form.addEventListener('submit', (e) => {
         resultMap.appendChild(mapMarker);
         result.appendChild(resultFeature);
         result.appendChild(resultMap)
+        tempButton.setAttribute('id', 'temp-button');
+        tempButton.setAttribute('type', 'button');
+        tempButton.innerHTML =  `<i class="fa fa-thermometer thermo"></i>
+        <span class="thermo-span">Convert &#176;C to &#176;F</span>`;
+        temp.appendChild(tempButton);        
+        shareButton.setAttribute('id', 'share-button');
+        shareButton.setAttribute('type', 'button');
+        shareButton.innerHTML = 
+        `<i class="fa fa-facebook thermo"></i>
+        <span class="thermo-span">Share to Facebook</span>`;
+        share.appendChild(shareButton);
         //result.appendChild(notFound);
     }
 })

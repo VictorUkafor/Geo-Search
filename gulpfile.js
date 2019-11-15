@@ -1,4 +1,6 @@
 const gulp = require('gulp');
+const browserify = require('browserify');
+const source = require('vinyl-source-stream');
 const autoprefixer = require('gulp-autoprefixer');
 const csso = require('gulp-csso');
 const eslint = require('gulp-eslint');
@@ -19,7 +21,7 @@ gulp.task('processHTML', done => {
 gulp.task('processCSS', done => {
     gulp.src('src/css/*.css')
     .pipe(autoprefixer())
-    .pipe(csso())
+    //.pipe(csso())
     .pipe(gulp.dest('dist/css'));
     done();
 });
@@ -34,17 +36,23 @@ gulp.task('processImage', done => {
 
 // task for processing JS files
 gulp.task('processJS', done => {
-    gulp.src('./src/js/*.*')
+    gulp.src('./build/js/*.*')
     .pipe(eslint())
     .pipe(eslint({ fix: true }))
     .pipe(eslint.format())
-    .pipe(eslint.failAfterError())
+    //.pipe(eslint.failAfterError())
     .pipe(babel({ presets: ['@babel/env']}))
     .pipe(uglify())
     .pipe(gulp.dest('./dist/js'));
     done();
   });
 
+
+  gulp.task('browserify', function() {
+    return browserify('./src/js/script.js').bundle()
+        .pipe(source('script.js'))
+        .pipe(gulp.dest('./build/js/'));
+});
 
 gulp.task('babelPolyfill', done => {
     gulp.src('node_modules/babel-polyfill/browser.js')
@@ -76,9 +84,8 @@ gulp.task('watch', ['browserSync'], () => {
 // task for running for all tasks concurrently  
 gulp.task('default', (callback) => {
   runSequence([
-      'processHTML', 'processJS', 
-      'processImage', 'processCSS',
-      'babelPolyfill'
+      'processHTML','browserify','processJS', 
+      'processImage', 'processCSS','babelPolyfill'
     ], 'watch', callback);
 });
 

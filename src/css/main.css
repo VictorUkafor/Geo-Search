@@ -194,7 +194,7 @@ footer a:hover{
 
 .search-button2{
     border: 0;
-    height: 3.15em;
+    height: 3em;
     background-color: #e63830;
     color: #fff;
     font-family: 'Comfortaa';
@@ -223,7 +223,7 @@ footer a:hover{
 }
 
 .land-mark{
-    margin-top: 2em;
+    margin-top: 0.3em;
     display: flex;
     flex-wrap: wrap;
     padding-top: 2%;
@@ -297,6 +297,8 @@ footer a:hover{
     border-radius: 10px;
     margin-left: 2%;
     margin-top: 1em;
+    background-repeat: cover;
+    background-size: 100% 100%;
 }
 
 .map-marker{
@@ -381,12 +383,13 @@ footer a:hover{
 }
 
 .condition-box ul li{ 
+    list-style-type: none;
     font-family: 'Comfortaa'; 
     font-weight: bold;
-    line-height: 2.1em;
+    line-height: 1.8em;
     font-size: 0.8em;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-left: 2%;
+    padding-right: 2%;
 }
 
 .condition-name{
@@ -405,8 +408,65 @@ footer a:hover{
     float: inherit;
 }
 
+.place-title{
+    color: #fff;
+    font-family: 'Comfortaa';
+    font-weight: 1000;
+    font-size: 1em;
+}
 
+.place-title .right{
+    float: right;
+}
 
+.large-image{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 4em;
+    margin-bottom: 4em;
+    z-index: 1;
+}
+
+.large-image .back{
+    width: 10%;
+}
+
+.large-image .back i{
+    margin-top: 7.5em;
+}
+
+.large-image .next .top{
+    margin-top: -1.5em;
+}
+
+.large-image .next .bottom{
+    margin-top: 7em;
+}
+
+.large-image .next{
+    width: 10%;
+}
+
+.large-image .image{
+    width: 80%;
+    border-radius: 10px;
+    background-repeat: cover;
+    background-size: 100% 100%;
+}
+
+.image-next{
+    color: #e63830;
+    font-size: 2.5em !important;
+    margin-top: 10px;
+    margin-left: 35%;
+    cursor: pointer;
+}
+
+.image-next:hover{
+    opacity: 0.8;
+}
 
 
 

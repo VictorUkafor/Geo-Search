@@ -29,7 +29,8 @@
     "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "3.0.2",
     "gulp-uglify-es": "^2.0.0",
-    "run-sequence": "2.2.1"
+    "run-sequence": "2.2.1",
+    "browserify": "16.5.0"
   },
   "browserslist": [
     "> 1%",

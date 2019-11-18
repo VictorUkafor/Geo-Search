@@ -37,14 +37,13 @@ gulp.task('processJS', done => {
     gulp.src('./src/js/*.*')
     .pipe(eslint())
     .pipe(eslint({ fix: true }))
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError())
+    //.pipe(eslint.format())
+    //.pipe(eslint.failAfterError())
     .pipe(babel({ presets: ['@babel/env']}))
     .pipe(uglify())
     .pipe(gulp.dest('./dist/js'));
     done();
   });
-
 
 gulp.task('babelPolyfill', done => {
     gulp.src('node_modules/babel-polyfill/browser.js')
@@ -77,8 +76,7 @@ gulp.task('watch', ['browserSync'], () => {
 gulp.task('default', (callback) => {
   runSequence([
       'processHTML', 'processJS', 
-      'processImage', 'processCSS',
-      'babelPolyfill'
+      'processImage', 'processCSS','babelPolyfill'
     ], 'watch', callback);
 });
 

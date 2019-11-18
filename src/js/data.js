@@ -108,6 +108,5 @@ const images = [
     'img/lag5.jpg'
 ];
 
-module.exports = {
-    featureList, images, conditions
-}
+
+ 

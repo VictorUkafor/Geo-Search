@@ -1,27 +1,23 @@
 // initialize required element for result page
-//const notFound = document.createElement('h1');
+const notFound = document.createElement('h1');
 const placeTitle = document.createElement('h1');
 const result = document.createElement('div');
 const landMark = document.createElement('div');
 const largeImage = document.createElement('div');
+const loader = document.createElement('div');
 
 const input = document.querySelector('.search-field');
 const submit = document.querySelector('.search-button');
 
-// loads when the document is loaded
-document.addEventListener('load', () => {
-    if(!input.value.trim()){
-        submit.setAttribute('disabled', 'disabled');
-        submit.classList.add('no-text');
-    } else {
-        submit.removeAttribute('disabled');
-        submit.classList.remove('no-text');
-    }
-});
 
 // runs when user is typing
 input.addEventListener('input', () => {
-    if(input.value.trim()){
+    if(input.value.trim()){    
+        const searchParams = new URLSearchParams(window.location.search);
+        searchParams.set("search", input.value.trim());
+        const newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
+        history.pushState(null, '', newRelativePathQuery);
+
         submit.removeAttribute('disabled');
         submit.classList.remove('no-text');
     } else {
@@ -79,13 +75,14 @@ function backLarge(image){
 
 
 // manipulates the DOM for the result page
-function resultPage(){
+function resultPage(res){
+    console.log('ffffffff', res);
     section.removeChild(intro);
-    section.removeChild(features);
+    main.removeChild(features);
 
     header.innerHTML = `<h1 id="logo" class="logo2">
     <a href="index.html"><span class="geo">Geo</span>
-    <span>Search</span></a></h1>`;
+    Search</a></h1>`;
 
     section.classList.add('section2');
 
@@ -97,8 +94,10 @@ function resultPage(){
     remove-outline">Explore</button></div>`;
 
     placeTitle.classList.add('place-title');
-    placeTitle.innerHTML = `<span class="left">Postal Code: 123401
-    </span"><span class="right">Lagos, Nigeria</span>`;
+    placeTitle.innerHTML = `<span class="left">
+    Postal Code: ${res.components.postcode ? res.components.postcode:'Not Available'}
+    </span"><span class="right">Location: ${res.formatted}</span>`;
+    
     main.appendChild(placeTitle);
 
     result.classList.add('result');
@@ -113,8 +112,8 @@ function resultPage(){
     <i class="fa fa-facebook thermo"></i>
     <span class="thermo-span">Share to Facebook</span>
     </button></div></div>
-    <div class="result-map" style="background-image: url('img/map.jpg');">
-    <i class="fa fa-map-marker map-marker"></i></div>`
+    <div class="result-map" style="background-image: 
+    url('https://www.mapquestapi.com/staticmap/v5/map?key=IvNAwSUNmSxFBKN37pVED3RuRscWNnGk&locations=${res.geometry.lat},${res.geometry.lng}&zoom=14&defaultMarker=marker-end&type=map');">`
     main.appendChild(result);
 
     landMark.classList.add('land-mark');
@@ -151,15 +150,90 @@ function resultPage(){
     });
     
 
-        // notFound.classList.add('not-found');
-        // notFound.textContent = `${input.value} Not Found!`;
-        //result.appendChild(notFound);
 
+
+};
+
+
+function errorPage(value){ 
+    header.innerHTML = `<h1 id="logo" class="logo2">
+    <a href="index.html"><span class="geo">Geo</span>
+    <span>Search</span></a></h1>`;
+
+    section.classList.add('section2');
+
+    form.classList.add('result-field');
+    form.innerHTML = `<div class="search">
+    <input autocomplete="off" type="search" 
+    name="search" id="field-search" 
+    class="search-field2 remove-outline"/>
+    <input type="submit" class="search-button 
+    search-button2" value="Explore"/></div>`;
+
+    notFound.classList.add('not-found');
+    notFound.textContent = `${value} Not Found!`;
+    result.appendChild(notFound);
+    main.appendChild(result);
+}
+
+
+// runs when submit the search field
+async function placeSearch(value){ 
+    body.appendChild(loader);   
+    body.removeChild(main);
+    body.removeChild(footer);
+    loader.classList.add('loader');
+    try{
+        const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q='${value}'&key=25538790e2f94fa1be1032d20c21e732&language=en&pretty=1&no_annotations=1`);
+        const data = await response.json();
+
+        if(data.results[0]){        
+            body.removeChild(loader);
+            body.appendChild(main);
+            body.appendChild(footer)
+            resultPage(data.results[0]); 
+        } else {
+            body.removeChild(loader);
+            body.appendChild(main);
+            section.removeChild(intro);
+            main.removeChild(features);
+            body.appendChild(footer)
+            errorPage(value); 
+        }
+        console.log('response', data.results[0]);
+    } catch(err){
+        body.removeChild(loader);
+        body.appendChild(main);
+        section.removeChild(intro);
+        main.removeChild(features);
+        body.appendChild(footer)
+        errorPage(value);
+    }
+    
 };
 
 
 // runs when submit the search field
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    resultPage();
+    placeSearch(input.value.trim());
+});
+
+
+// loads when the document is loaded
+window.addEventListener('load', () => {
+    const params = new URLSearchParams(window.location.search);
+    const search = params.get('search');
+    if(search){
+        placeSearch(search);
+    } else {
+        if(!input.value.trim()){
+        submit.setAttribute('disabled', 'disabled');
+        submit.classList.add('no-text');
+    } else {
+        submit.removeAttribute('disabled');
+        submit.classList.remove('no-text');
+    }   
+    }
+
 });

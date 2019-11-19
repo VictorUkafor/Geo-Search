@@ -29,10 +29,14 @@ places around the globe. Share your experience</p>`;
 section.appendChild(intro);
 
 form.innerHTML = `<div class="search">
-<input type="text" id="field-search" class="search-field" name="search">
-<input type="submit" class="search-button" value="Explore"/></div>`;
+<input autocomplete="off" type="text" id="field-search"
+class="search-field" name="search"><input type="submit" 
+class="search-button" value="Explore"/></div>`;
 // append form to section of the main div
 section.appendChild(form);
+
+// append section to the main div
+main.appendChild(section);
 
 features.classList.add('features');
 
@@ -48,10 +52,7 @@ featureList.forEach((item) => {
 });
 
 // append features to section div
-section.appendChild(features);
-
-// append section to the main div
-main.appendChild(section);
+main.appendChild(features);
 
 // append main to the body
 body.appendChild(main);

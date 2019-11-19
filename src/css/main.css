@@ -31,6 +31,7 @@ body{
     font-family: 'Tangerine', serif;
     font-size: 1.7em;
     font-weight: 500;
+    word-spacing: -12px;
 }
 
 .content .intro{
@@ -206,7 +207,7 @@ footer a:hover{
 
 .logo2{
     margin-bottom: -2.1em;
-    font-size: 2em;
+    word-spacing: -8px;
 }
 
 .section2{
@@ -216,7 +217,7 @@ footer a:hover{
 .result{
     display: flex;
     flex-wrap: wrap;
-    min-height: 25em;
+    min-height: 35em;
     width: 100%;
     background: rgba(30, 30, 30, 0.6);
     padding-left: 1em;
@@ -253,9 +254,12 @@ footer a:hover{
     font-size: 4em;
     color: #fff;
     font-family: 'Comfortaa';
-    font-size: 2em;
-    margin-left: 12em;
-    padding-top: 4em;
+    padding: 4.65em 1em;
+    text-align: center;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+
 }
 
 .result-features{
@@ -267,7 +271,7 @@ footer a:hover{
 
 .weather-feature{
     width: 80%;
-    height: 70%;
+    height: 67%;
     background-color: #fff;
     margin-left: 10%; 
     margin-top: 10%;
@@ -278,7 +282,7 @@ footer a:hover{
     width: 80%;
     height: 8%;
     margin-left: 10%; 
-    margin-top: 2%;
+    margin-top: 7%;
     border-radius: 10px;
 }
 
@@ -286,13 +290,13 @@ footer a:hover{
     width: 80%;
     height: 8%;
     margin-left: 10%;
-    margin-top: 2%;
+    margin-top: 7%;
     border-radius: 10px;
 }
 
 .result-map{
     width: 71%;
-    height: 23em;
+    height: 33em;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     margin-left: 2%;
@@ -386,7 +390,7 @@ footer a:hover{
     list-style-type: none;
     font-family: 'Comfortaa'; 
     font-weight: bold;
-    line-height: 1.8em;
+    line-height: 2.5em;
     font-size: 0.8em;
     padding-left: 2%;
     padding-right: 2%;
@@ -413,6 +417,7 @@ footer a:hover{
     font-family: 'Comfortaa';
     font-weight: 1000;
     font-size: 1em;
+    text-transform: capitalize;
 }
 
 .place-title .right{
@@ -467,6 +472,41 @@ footer a:hover{
 .image-next:hover{
     opacity: 0.8;
 }
+
+
+
+.loader {
+    display: inline-block;
+    width: 15em;
+    height: 15em;
+    margin-top: 15%;
+    margin-left: 40%;
+  }
+  .loader:after {
+    content: " ";
+    display: block;
+    width: 80%;
+    height: 80%;
+    margin: 10%;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: loader 1.2s linear infinite;
+  }
+  @keyframes loader {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+
+
+
+
+
 
 
 

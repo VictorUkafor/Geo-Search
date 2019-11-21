@@ -11,14 +11,14 @@ body{
     background-blend-mode: multiply;
 }
 
-#logo{
+.logo{
     font-family: 'Tangerine', serif;
     font-size: 3.5em;
     font-weight: normal;
     color: #fff;
 }
 
-#logo a{
+.logo a{
     text-decoration: none;
     color: inherit;
 }
@@ -61,7 +61,6 @@ body{
 
 .content form{
     margin: 50px 0;
-    margin-top: 70px;
 }
 
 
@@ -187,7 +186,7 @@ footer a:hover{
     font-family: 'Comfortaa';
     padding-left: 10px;
     border: 0;
-    height: 3em;
+    height: 2.85em;
     width: 80%;
     font-family: 'Roboto';
 }
@@ -204,14 +203,9 @@ footer a:hover{
     cursor: pointer;
 }
 
-
-.logo2{
-    margin-bottom: -2.1em;
-    word-spacing: -8px;
-}
-
 .section2{
-    margin-bottom: 10.5em;
+    margin-top: -8.9em;
+    margin-bottom: 13em;
 }
 
 .result{
@@ -280,17 +274,25 @@ footer a:hover{
 
 .temp-feature{
     width: 80%;
-    height: 8%;
+    height: 6.3%;
     margin-left: 10%; 
-    margin-top: 7%;
+    margin-top: 3%;
     border-radius: 10px;
 }
 
 .share-feature{
     width: 80%;
-    height: 8%;
+    height: 6.3%;
     margin-left: 10%;
-    margin-top: 7%;
+    margin-top: 3%;
+    border-radius: 10px;
+}
+
+.switch-feature{
+    width: 80%;
+    height: 6.3%;
+    margin-left: 10%;
+    margin-top: 3%;
     border-radius: 10px;
 }
 
@@ -354,6 +356,19 @@ footer a:hover{
     outline: none;
 }
 
+#switch-button{
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background-color: #018810;
+    border-radius: 10px;
+    color: #fff;
+    font-family: 'Comfortaa';
+    font-weight: bold;
+    padding-top: 1.5%;
+    outline: none;
+}
+
 
 #temp-button:hover, #share-button:hover{
     cursor: pointer;
@@ -362,15 +377,28 @@ footer a:hover{
 
 .weather-cloud{
     color: #007fc2;
-    font-size: 2.5em !important;
-    margin-top: 10px;
-    margin-left: 35%;
+    background-repeat: cover;
+    background-size: 100% 100%;
+    width: 50%;
+    margin-left: 25%;
+    height: 5em;
 }
 
 .thermo{
     float: left;
     font-size: 1.4em !important;
     margin-left: 10%;
+}
+
+.cloud-description{ 
+    font-family: 'Comfortaa'; 
+    font-weight: bold;
+    font-size: 1em;
+    line-height: 0.8em;
+    text-align: center;
+    text-transform: capitalize;
+    margin-top: 0;
+    margin-bottom: -0.5em;
 }
 
 .condition-box{
@@ -390,7 +418,7 @@ footer a:hover{
     list-style-type: none;
     font-family: 'Comfortaa'; 
     font-weight: bold;
-    line-height: 2.5em;
+    line-height: 2.2em;
     font-size: 0.8em;
     padding-left: 2%;
     padding-right: 2%;
@@ -403,7 +431,6 @@ footer a:hover{
 
 .condition-value{
     color: #e63830;
-    margin-left: 30px;
     float: right;
 }
 
@@ -479,9 +506,10 @@ footer a:hover{
     display: inline-block;
     width: 15em;
     height: 15em;
-    margin-top: 15%;
+    margin-top: 12%;
     margin-left: 40%;
   }
+
   .loader:after {
     content: " ";
     display: block;

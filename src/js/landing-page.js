@@ -12,7 +12,7 @@ const footer = document.createElement('footer');
 
 main.setAttribute('id', 'centering');
 
-header.innerHTML = `<h1 id="logo"><a href="index.html">
+header.innerHTML = `<h1 class="logo"><a href="index.html">
 <span class="geo">Geo</span><span>Search</span></a></h1>`;
 // append header to the main header div
 main.appendChild(header);
@@ -63,5 +63,6 @@ and developed by <a href="https://github.com/VictorUkafor">
 Victor Ukafor</a></p>`;
 // append footer to the body
 body.appendChild(footer);
+
 
 

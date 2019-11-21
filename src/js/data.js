@@ -56,45 +56,45 @@ const featureList = [
 ];
 
 
-const conditions = [
+let conditions = [
     {
         name: 'Temperature',
-        value: '37',
+        value: '',
         unit: '&#176;C',
     },
     {
         name: 'Cloud Cover',
-        value: '1',
+        value: '',
         unit: ''
     },
     {
         name: 'Pressure',
-        value: '37',
+        value: '',
         unit: 'mb',
     },
     {
         name: 'Precipitation',
-        value: '10',
+        value: '',
         unit: 'inch',
     }, 
     {
         name: 'Visibility',
-        value: '8',
+        value: '',
         unit: 'mi',
     },
     {
         name: 'Humidity',
-        value: '1',
+        value: '',
         unit: '',
     },  
     {
         name: 'Wind Speed',
-        value: '6',
+        value: '',
         unit: 'mi/hr',
     }, 
     {
         name: 'Time Zone',
-        value: '+1',
+        value: '',
         unit: 'UTC',
     }, 
 ];

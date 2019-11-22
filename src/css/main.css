@@ -394,11 +394,11 @@ footer a:hover{
     font-family: 'Comfortaa'; 
     font-weight: bold;
     font-size: 1em;
-    line-height: 0.8em;
+    line-height: 1.3em;
     text-align: center;
     text-transform: capitalize;
     margin-top: 0;
-    margin-bottom: -0.5em;
+    margin-bottom: -0.8em;
 }
 
 .condition-box{
@@ -418,7 +418,7 @@ footer a:hover{
     list-style-type: none;
     font-family: 'Comfortaa'; 
     font-weight: bold;
-    line-height: 2.2em;
+    line-height: 2em;
     font-size: 0.8em;
     padding-left: 2%;
     padding-right: 2%;
@@ -504,9 +504,9 @@ footer a:hover{
 
 .loader {
     display: inline-block;
-    width: 15em;
-    height: 15em;
-    margin-top: 12%;
+    width: 10em;
+    height: 10em;
+    margin-top: 20%;
     margin-left: 40%;
   }
 

@@ -30,8 +30,8 @@ section.appendChild(intro);
 
 form.innerHTML = `<div class="search">
 <input autocomplete="off" type="text" id="field-search"
-class="search-field" name="search"><input type="submit" 
-class="search-button" value="Explore"/></div>`;
+class="search-field" name="search"><button type="submit" 
+class="search-button">Explore</button></div>`;
 // append form to section of the main div
 section.appendChild(form);
 

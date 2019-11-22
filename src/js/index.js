@@ -1,5 +1,5 @@
 // initialize required element for result page
-const notFound = document.createElement('h1');
+const notFound = document.createElement('div');
 const placeTitle = document.createElement('h1');
 const result = document.createElement('div');
 const largeImage = document.createElement('div');
@@ -7,6 +7,7 @@ const loader = document.createElement('div');
 
 const input = document.querySelector('.search-field');
 const submit = document.querySelector('.search-button');
+const messageDiv = document.querySelector('.message');
 
 
 function changeTemp(temp){
@@ -96,14 +97,34 @@ function switchMap(lat, lng){
 
 // runs when user is typing
 input.addEventListener('input', () => {
-    if(input.value.trim()){    
+    const value = input.value.trim();
+    
+        if(value){    
         const searchParams = new URLSearchParams(window.location.search);
-        searchParams.set("search", input.value.trim());
-        const newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
+        searchParams.set("search", value);
+        const newRelativePathQuery = window.location.pathname + '?' 
+        + searchParams.toString();
         history.pushState(null, '', newRelativePathQuery);
 
-        submit.removeAttribute('disabled');
-        submit.classList.remove('no-text');
+        if(value.length > 50){
+            submit.setAttribute('disabled', 'disabled');
+            submit.classList.add('no-text');
+
+            messageDiv.innerHTML = `<p id="error">You've exceeded 
+            the 50 characters limit</p>`;
+        }else if(!value.includes(',')){
+            submit.removeAttribute('disabled');
+            submit.classList.remove('no-text');
+
+            messageDiv.innerHTML = `<p id="warning">For best search result 
+            enter two related places separated by a comma. e.g Lagos, Nigeria</p>`;
+        } else {
+            submit.removeAttribute('disabled');
+            submit.classList.remove('no-text');
+
+            messageDiv.innerHTML = '';
+        }
+
     } else {
         submit.setAttribute('disabled', 'disabled');
         submit.classList.add('no-text');
@@ -172,6 +193,11 @@ function backLarge(image, allImages){
 
 // manipulates the DOM for the result page
 function secondResultPage(res, weatherData, pixaImages){
+
+    form.addEventListener('submit', (e)=> {
+        e.preventDefault();
+        resultSearch(e.target.search.value);
+    });
 
     placeTitle.innerHTML = `<span class="left">
     Postal Code: ${res.components.postcode ? res.components.postcode:'Not Available'}
@@ -297,10 +323,10 @@ async function resultSearch(value){
         if(cagedataJson.results[0] && weathermapJson){        
             secondResultPage(cagedataJson.results[0], weathermapJson, onlyImages); 
         } else {
-            errorPage(value); 
+            secondErrorPage(value); 
         }
     } catch(err){
-        errorPage(value);
+        secondErrorPage(value);
     }
     
 }
@@ -312,7 +338,7 @@ function resultPage(res, weatherData, pixaImages){
     section.removeChild(intro);
     main.removeChild(features);
 
-    section.classList.add('section2');
+    section.classList.add('form-2');
 
     form.classList.add('result-field');
     form.addEventListener('submit', (e)=> {
@@ -323,9 +349,11 @@ function resultPage(res, weatherData, pixaImages){
     input.classList.add('search-field2', 'remove-outline');
     submit.classList.add('search-button2');
 
+    message.classList.add('message-2');
+
     placeTitle.classList.add('place-title');
-    placeTitle.innerHTML = `<span class="left">
-    Postal Code: ${res.components.postcode ? res.components.postcode:'Not Available'}
+    placeTitle.innerHTML = `<span>Postal Code: 
+    ${res.components.postcode ? res.components.postcode:'Not Available'}
     </span"><span class="right">Location: ${res.formatted}</span>`;
     
     main.appendChild(placeTitle);
@@ -437,26 +465,49 @@ function resultPage(res, weatherData, pixaImages){
 };
 
 
+
+function secondErrorPage(value){ 
+    form.addEventListener('submit', (e)=> {
+        e.preventDefault();
+        resultSearch(e.target.search.value);
+    });
+
+    notFound.innerHTML = `<h1>${value} Not Found!</h1>`;
+    main.appendChild(notFound);
+}
+
+
 function errorPage(value){ 
-    section.classList.add('section2');
+    section.removeChild(intro);
+    main.removeChild(features);
+
+    section.classList.add('form-2');
 
     form.classList.add('result-field');
+    form.addEventListener('submit', (e)=> {
+        e.preventDefault();
+        resultSearch(e.target.search.value);
+    });
+
+
     input.classList.add('search-field2', 'remove-outline');
     submit.classList.add('search-button2');
 
+    message.classList.add('message-2');
+
     notFound.classList.add('not-found');
-    notFound.textContent = `${value} Not Found!`;
-    result.appendChild(notFound);
-    main.appendChild(result);
+    notFound.innerHTML = `<h1>${value} Not Found!</h1>`;
+    main.appendChild(notFound);
 }
 
 
 // runs when submit the search field
 async function placeSearch(value){    
     loader.classList.add('loader');
+    body.appendChild(loader);
     body.removeChild(main)
     body.removeChild(footer);
-    body.appendChild(loader);
+    messageDiv.innerHTML = '';
 
     try{
         const cagedata = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${value}&key=25538790e2f94fa1be1032d20c21e732&language=en&pretty=1&no_annotations=1`);
@@ -467,11 +518,7 @@ async function placeSearch(value){
         const weathermapJson = await weathermap.json();
         const pixabayJson = await pixabay.json();
 
-        console.log('weather conditions', cagedataJson, weathermapJson, pixabayJson.hits);
-
         const onlyImages = pixabayJson.hits.map((hit) => hit.largeImageURL);
-
-        console.log('onlyImages', onlyImages);
 
         body.removeChild(loader);
         body.appendChild(main)
@@ -483,6 +530,9 @@ async function placeSearch(value){
             errorPage(value); 
         }
     } catch(err){
+        body.removeChild(loader);
+        body.appendChild(main)
+        body.appendChild(footer);
         errorPage(value);
     }
     
@@ -502,7 +552,20 @@ window.addEventListener('load', () => {
     const params = new URLSearchParams(window.location.search);
     const search = params.get('search');
     if(search){
-        placeSearch(search);
+        if(search.length > 50){
+            submit.setAttribute('disabled', 'disabled');
+            submit.classList.add('no-text');
+
+            messageDiv.innerHTML = `<p id="error">You've exceeded 
+            the 50 characters limit</p>`;
+        } else {
+            submit.removeAttribute('disabled');
+            submit.classList.remove('no-text');
+
+            messageDiv.innerHTML = '';
+            placeSearch(search);
+        }
+        
     } else {
         if(!input.value.trim()){
         submit.setAttribute('disabled', 'disabled');

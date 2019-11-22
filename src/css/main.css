@@ -60,9 +60,33 @@ body{
 
 
 .content form{
-    margin: 50px 0;
+    margin: 4em 0;
+    margin-bottom: -0.8em;
 }
 
+
+.message-2{
+    padding-top: 6em;
+    width: 75%;
+    margin-left: 25%;
+    margin-bottom: -8em;
+}
+
+.message p{
+    text-align: left;
+    font-size: 1em;
+    line-height: 1.5;
+    margin-top: 1.5em;
+    font-weight: bold;
+}
+
+.message #warning{
+    color: green;
+}
+
+.message #error{
+    color: red;
+}
 
 .search{
     display: flex;
@@ -203,9 +227,9 @@ footer a:hover{
     cursor: pointer;
 }
 
-.section2{
-    margin-top: -8.9em;
-    margin-bottom: 13em;
+.form-2{
+    margin-top: -9.5em;
+    margin-bottom: 12em;
 }
 
 .result{
@@ -245,10 +269,13 @@ footer a:hover{
 }
 
 .not-found{
-    font-size: 4em;
+    height: 36.5em;
+}
+
+.not-found h1{
+    font-size: 2em;
     color: #fff;
     font-family: 'Comfortaa';
-    padding: 4.65em 1em;
     text-align: center;
     -ms-word-break: break-all;
     word-break: break-all;
@@ -442,7 +469,7 @@ footer a:hover{
 .place-title{
     color: #fff;
     font-family: 'Comfortaa';
-    font-weight: 1000;
+    font-weight: bold;
     font-size: 1em;
     text-transform: capitalize;
 }

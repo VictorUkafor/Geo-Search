@@ -1,123 +1,41 @@
-// initialize required element for result page
-const notFound = document.createElement('div');
-const placeTitle = document.createElement('h1');
-const result = document.createElement('div');
-const largeImage = document.createElement('div');
-const loader = document.createElement('div');
-
-const input = document.querySelector('.search-field');
 const submit = document.querySelector('.search-button');
-const messageDiv = document.querySelector('.message');
 
 
-function changeTemp(temp){
-    const tempItem = document.querySelector('.temp-item');
-    const tempButton = document.querySelector('#temp-button');
-    if(!localStorage.getItem('tempUnit')){
-        localStorage.setItem('tempUnit', 'C');
-        let tempValue = (temp - 273.15).toFixed(2);
-        localStorage.setItem('tempValue', tempValue);
-
-        let list = `<i class="fa fa-circle condition-symbol"></i>
-        <span class="condition-name">Temperature:</span>
-        <span class="condition-value">${localStorage.getItem('tempValue')}
-        <span class="condition-unit">
-        &#176;C</span></span>`;
-
-        let buttonChild = `<i class="fa fa-thermometer thermo"></i>
-        <span class="thermo-span">Convert &#176C to &#176F</span>`;
-
-        tempItem.innerHTML = list;
-        tempButton.innerHTML = buttonChild
-    } else if(localStorage.getItem('tempUnit') === 'F'){
-        let tempValue = ((localStorage.getItem('tempValue') - 32) * (5/9)).toFixed(2);
-        localStorage.setItem('tempUnit', 'C');
-        localStorage.setItem('tempValue', tempValue);
-
-        let list = `<i class="fa fa-circle condition-symbol"></i>
-        <span class="condition-name">Temperature:</span>
-        <span class="condition-value">${localStorage.getItem('tempValue')}
-        <span class="condition-unit">
-        &#176;C</span></span>`;
-
-        let buttonChild = `<i class="fa fa-thermometer thermo"></i>
-        <span class="thermo-span">Convert &#176C to &#176F</span>`;
-
-        tempItem.innerHTML = list;
-        tempButton.innerHTML = buttonChild
-    } else {
-        let tempValue = ((localStorage.getItem('tempValue') * (9/5)) + 32).toFixed(2);
-        localStorage.setItem('tempUnit', 'F');
-        localStorage.setItem('tempValue', tempValue);
-
-        let list = `<i class="fa fa-circle condition-symbol"></i>
-        <span class="condition-name">Temperature:</span>
-        <span class="condition-value">${localStorage.getItem('tempValue')}
-        <span class="condition-unit">
-        &#176;F</span></span>`
-
-        let buttonChild = `<i class="fa fa-thermometer thermo"></i>
-        <span class="thermo-span">Convert &#176F to &#176C</span>`;
-
-        tempItem.innerHTML = list;
-        tempButton.innerHTML = buttonChild
-
-    }
-
-}
-
-
-function switchMap(lat, lng){
-    const switchButton = document.querySelector('#switch-button');
-    const mainMap = document.querySelector('.result-map');
-    if(localStorage.getItem('mapType') === 'map' || !localStorage.getItem('mapType')){
-        localStorage.setItem('mapType', 'hyb');
-        localStorage.setItem('mapNext', 'Map');
-
-        let url = `https://www.mapquestapi.com/staticmap/v5/map?key=IvNAwSUNmSxFBKN37pVED3RuRscWNnGk&locations=${lat},${lng}&zoom=14&defaultMarker=marker-end&type=hyb`;
-
-        mainMap.setAttribute('style', `background-image: url('${url}');`);
-        switchButton.innerHTML = `<i class="fa fa-toggle-off thermo"></i>
-        <span class="thermo-span">Switch to Map View</span>`;
-
-    } else {
-        localStorage.setItem('mapType', 'map');
-        localStorage.setItem('mapNext', 'Earth');
-
-        let url = `https://www.mapquestapi.com/staticmap/v5/map?key=IvNAwSUNmSxFBKN37pVED3RuRscWNnGk&locations=${lat},${lng}&zoom=14&defaultMarker=marker-end&type=map`;
-
-        mainMap.setAttribute('style', `background-image: url('${url}');`);
-        switchButton.innerHTML = `<i class="fa fa-toggle-on thermo"></i>
-        <span class="thermo-span">Switch to Earth View</span>`;
-
-    }
-}
-
-
-
-// runs when user is typing
+// runs when user is typing in the search field
 input.addEventListener('input', () => {
     const value = input.value.trim();
     
-        if(value){    
+        if(value){ 
+            
+        // enter search text into address bar as the user
+        // is typing    
         const searchParams = new URLSearchParams(window.location.search);
         searchParams.set("search", value);
         const newRelativePathQuery = window.location.pathname + '?' 
         + searchParams.toString();
         history.pushState(null, '', newRelativePathQuery);
 
+        // checks if the search text is greater than 50
+        // 50 characters is the maximum number allowed
         if(value.length > 50){
             submit.setAttribute('disabled', 'disabled');
             submit.classList.add('no-text');
 
-            messageDiv.innerHTML = `<p id="error">You've exceeded 
-            the 50 characters limit</p>`;
+            messageDiv.innerHTML = `<p id="error">You've
+             exceeded the 50 characters limit</p>`;
+
+        // checks if search string is separated by comma.
+        // This helps to maximise search precision
         }else if(!value.includes(',')){
             submit.removeAttribute('disabled');
             submit.classList.remove('no-text');
 
-            messageDiv.innerHTML = `<p id="warning">For best search result 
-            enter two related places separated by a comma. e.g Lagos, Nigeria</p>`;
+            messageDiv.innerHTML = `<p id="warning">For best 
+            search result enter two related places separated 
+            by a comma. e.g Lagos, Nigeria</p>`;
+
+        // search terms passing validations are allowed for
+        // processing    
         } else {
             submit.removeAttribute('disabled');
             submit.classList.remove('no-text');
@@ -125,439 +43,40 @@ input.addEventListener('input', () => {
             messageDiv.innerHTML = '';
         }
 
+    // sets submit button to disabled when search
+    // field is empty 
     } else {
         submit.setAttribute('disabled', 'disabled');
         submit.classList.add('no-text');
     }
-})
+});
 
-// display large landmark image
-function displayLarge(image, allImages){
 
-    largeImage.classList.add('large-image');
-
-    largeImage.innerHTML = `<div class="back">
-    <i id="back-icon" class="fa fa-chevron-circle-left image-next"></i></div>
-    <div class="image" style="background-image:url(${image})"></div>
-    <div class="next"><i class="top fa fa-times image-next" onclick="removeLarge();"></i>
-    <i id="next-icon" class="bottom fa fa-chevron-circle-right image-next"></i></div>`
-    body.appendChild(largeImage);
-
-    const backIcon = document.querySelector('#back-icon');
-    backIcon.addEventListener('click', () =>{
-        backLarge(image, allImages);
-    })
-
-    const nextIcon = document.querySelector('#next-icon');
-    nextIcon.addEventListener('click', () =>{
-        nextLarge(image, allImages);
-    })
-
-    body.removeChild(main);
-    body.removeChild(footer);            
-}
-
-
-// cancel out large image viewing
-function removeLarge(){ 
-    body.appendChild(main);
-    body.removeChild(largeImage);;
-    body.appendChild(footer);
-}
-
-
-// shows the next large image
-function nextLarge(image, allImages){
-    console.log('....', allImages);
-    const index = allImages.indexOf(image);
-    const newIndex = (index + 1) > (allImages.length - 1) ? 0 : (index + 1);
-
-    displayLarge(allImages[newIndex], allImages);
-}
-
-
-// shows the previous large image
-function backLarge(image, allImages){
-    const index = allImages.indexOf(image);
-
-    let newIndex = '';
-    if(index === 0){
-        newIndex = allImages.length-1;
-    } else {
-        newIndex = index-1;
-    }
-
-    displayLarge(allImages[newIndex], allImages);
-}
-
-
-// manipulates the DOM for the result page
-function secondResultPage(res, weatherData, pixaImages){
-
-    form.addEventListener('submit', (e)=> {
-        e.preventDefault();
-        resultSearch(e.target.search.value);
-    });
-
-    placeTitle.innerHTML = `<span class="left">
-    Postal Code: ${res.components.postcode ? res.components.postcode:'Not Available'}
-    </span"><span class="right">Location: ${res.formatted}</span>`;
-    
-    result.innerHTML = `<div class="result-features">
-    <div class="weather-feature">
-    <div style="background-image: url('http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png');" class="weather-cloud"></div>
-
-    <div class="condition-box">
-    <p class="cloud-description">${weatherData.weather[0].description}</p>
-    <ul>
-
-    <li class="temp-item"><i class="fa fa-circle condition-symbol"></i>
-    <span class="condition-name">Temperature:</span>
-    <span class="condition-value">
-    ${localStorage.getItem('tempValue') || weatherData.main.temp}
-    <span class="condition-unit">&#176;${localStorage.getItem('tempUnit') || 'F'}</span></span></li>
-
-    <li><i class="fa fa-circle condition-symbol"></i>
-    <span class="condition-name">Pressure:</span>
-    <span class="condition-value">${weatherData.main.pressure}
-    <span class="condition-unit">mb</span></span></li>
-
-    <li><i class="fa fa-circle condition-symbol"></i>
-    <span class="condition-name">Visibility:</span>
-    <span class="condition-value">${weatherData.visibility || ''}
-    <span class="condition-unit">${weatherData.visibility ? 'm':'N/A'}</span></span></li>
-
-    <li><i class="fa fa-circle condition-symbol"></i>
-    <span class="condition-name">Humidity:</span>
-    <span class="condition-value">${weatherData.main.humidity}
-    <span class="condition-unit">%</span></span></li>
-
-    <li><i class="fa fa-circle condition-symbol"></i>
-    <span class="condition-name">Precipitation:</span>
-    <span class="condition-value">${weatherData.precipitation || ''}
-    <span class="condition-unit">${weatherData.precipitation ? 'mm':'N/A'}</span></span></li>
-
-    <li><i class="fa fa-circle condition-symbol"></i>
-    <span class="condition-name">Wind Speed:</span>
-    <span class="condition-value">${(weatherData.wind.speed * 2.237).toFixed(2)}
-    <span class="condition-unit">mi/hr</span></span></li>
-
-    <li><i class="fa fa-circle condition-symbol"></i>
-    <span class="condition-name">Wind Direction:</span>
-    <span class="condition-value">${weatherData.wind.deg || ''}
-    <span class="condition-unit">${weatherData.wind.deg ? '&#176;':'N/A'}</span></span></li>
-
-    <li><i class="fa fa-circle condition-symbol"></i>
-    <span class="condition-name">Cloud Cover:</span>
-    <span class="condition-value">${weatherData.clouds.all || ''}
-    <span class="condition-unit">${weatherData.clouds.all ? '':'N/A'}</span></span></li>
-
-    <li><i class="fa fa-circle condition-symbol"></i>
-    <span class="condition-name">Timezone:</span>
-    <span class="condition-value">${Math.sign((weatherData.timezone/(60*60))) 
-    === 1 ? '+':''}${(weatherData.timezone/(60*60))}
-    <span class="condition-unit">GMT</span></span></li>
-
-    </ul></div></div>
-
-    <div class="temp-feature">
-    <button id="temp-button" type="button" 
-    onclick="changeTemp('${weatherData.main.temp}');">
-    <i class="fa fa-thermometer thermo"></i>
-    <span class="thermo-span">Convert 
-    ${localStorage.getItem('tempUnit') === 'C' ? '&#176C to &#176F' : '&#176F to &#176C'}
-    </span></button></div>
-
-    <div class="share-feature">
-    <button id="share-button" type="button">
-    <i class="fa fa-facebook thermo"></i>
-    <span class="thermo-span">Share to Facebook</span>
-    </button></div>
-
-    <div class="switch-feature" onclick="switchMap('${res.geometry.lat}', '${res.geometry.lng}')">
-    <button id="switch-button" type="button">
-    <i class="fa ${localStorage.getItem('mapNext') === 'Earth' ? 
-    'fa-toggle-on' : 'fa-toggle-off'} thermo"></i>
-    <span class="thermo-span">Switch to ${localStorage.getItem('mapNext')  || 'Earth'}  View</span>
-    </button></div>
-
-    </div>
-
-    <div class="result-map" style="background-image: 
-    url('https://www.mapquestapi.com/staticmap/v5/map?key=IvNAwSUNmSxFBKN37pVED3RuRscWNnGk&locations=${res.geometry.lat},${res.geometry.lng}&zoom=14&defaultMarker=marker-end&type=${localStorage.getItem('mapType')  || 'map'}');">
-    </div>`
-
-    const landMark = document.querySelector('.land-mark');
-    landMark.innerHTML = '';
-
-    main.appendChild(landMark);
-
-    // display landmark images of the search to the result page
-    pixaImages.forEach((img) => {
-        const image = document.createElement('div');
-
-        image.style.backgroundImage = `url(${img})`;
-        image.addEventListener('click', () => {
-            displayLarge(img, pixaImages);
-        });
-
-        landMark.appendChild(image);
-    });
-    
-
-};
-
-
-async function resultSearch(value){
-    try{
-        const cagedata = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${value}&key=25538790e2f94fa1be1032d20c21e732&language=en&pretty=1&no_annotations=1`);
-        const weathermap = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${value}&APPID=1e32355a85c5965bc24316c27175c6a7`);
-        const pixabay = await fetch(`https://pixabay.com/api/?key=14281350-22ea61d1a8aab6d3cae824171&q=${value}&image_type=photo&category=places,buildings,travel`);
-        
-        const cagedataJson = await cagedata.json();
-        const weathermapJson = await weathermap.json();
-        const pixabayJson = await pixabay.json();
-
-        const onlyImages = pixabayJson.hits.map((hit) => hit.largeImageURL);
-
-        if(cagedataJson.results[0] && weathermapJson){        
-            secondResultPage(cagedataJson.results[0], weathermapJson, onlyImages); 
-        } else {
-            secondErrorPage(value); 
-        }
-    } catch(err){
-        secondErrorPage(value);
-    }
-    
-}
-
-
-// manipulates the DOM for the result page
-function resultPage(res, weatherData, pixaImages){
-    
-    section.removeChild(intro);
-    main.removeChild(features);
-
-    section.classList.add('form-2');
-
-    form.classList.add('result-field');
-    form.addEventListener('submit', (e)=> {
-        e.preventDefault();
-        resultSearch(e.target.search.value);
-    });
-
-    input.classList.add('search-field2', 'remove-outline');
-    submit.classList.add('search-button2');
-
-    message.classList.add('message-2');
-
-    placeTitle.classList.add('place-title');
-    placeTitle.innerHTML = `<span>Postal Code: 
-    ${res.components.postcode ? res.components.postcode:'Not Available'}
-    </span"><span class="right">Location: ${res.formatted}</span>`;
-    
-    main.appendChild(placeTitle);
-
-    result.classList.add('result');
-    result.innerHTML = `<div class="result-features">
-    <div class="weather-feature">
-    <div style="background-image: url('http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png');" class="weather-cloud"></div>
-
-    <div class="condition-box">
-    <p class="cloud-description">${weatherData.weather[0].description}</p>
-    <ul>
-
-    <li class="temp-item"><i class="fa fa-circle condition-symbol"></i>
-    <span class="condition-name">Temperature:</span>
-    <span class="condition-value">
-    ${localStorage.getItem('tempValue') || weatherData.main.temp}
-    <span class="condition-unit">&#176;${localStorage.getItem('tempUnit') || 'F'}</span></span></li>
-
-    <li><i class="fa fa-circle condition-symbol"></i>
-    <span class="condition-name">Pressure:</span>
-    <span class="condition-value">${weatherData.main.pressure}
-    <span class="condition-unit">mb</span></span></li>
-
-    <li><i class="fa fa-circle condition-symbol"></i>
-    <span class="condition-name">Visibility:</span>
-    <span class="condition-value">${weatherData.visibility || ''}
-    <span class="condition-unit">${weatherData.visibility ? 'm':'N/A'}</span></span></li>
-
-    <li><i class="fa fa-circle condition-symbol"></i>
-    <span class="condition-name">Humidity:</span>
-    <span class="condition-value">${weatherData.main.humidity}
-    <span class="condition-unit">%</span></span></li>
-
-    <li><i class="fa fa-circle condition-symbol"></i>
-    <span class="condition-name">Precipitation:</span>
-    <span class="condition-value">${weatherData.precipitation || ''}
-    <span class="condition-unit">${weatherData.precipitation ? 'mm':'N/A'}</span></span></li>
-
-    <li><i class="fa fa-circle condition-symbol"></i>
-    <span class="condition-name">Wind Speed:</span>
-    <span class="condition-value">${(weatherData.wind.speed * 2.237).toFixed(2)}
-    <span class="condition-unit">mi/hr</span></span></li>
-
-    <li><i class="fa fa-circle condition-symbol"></i>
-    <span class="condition-name">Wind Direction:</span>
-    <span class="condition-value">${weatherData.wind.deg || ''}
-    <span class="condition-unit">${weatherData.wind.deg ? '&#176;':'N/A'}</span></span></li>
-
-    <li><i class="fa fa-circle condition-symbol"></i>
-    <span class="condition-name">Cloud Cover:</span>
-    <span class="condition-value">${weatherData.clouds.all || ''}
-    <span class="condition-unit">${weatherData.clouds.all ? '':'N/A'}</span></span></li>
-
-    <li><i class="fa fa-circle condition-symbol"></i>
-    <span class="condition-name">Timezone:</span>
-    <span class="condition-value">${Math.sign((weatherData.timezone/(60*60))) 
-    === 1 ? '+':''}${(weatherData.timezone/(60*60))}
-    <span class="condition-unit">GMT</span></span></li>
-
-    </ul></div></div>
-
-    <div class="temp-feature">
-    <button id="temp-button" type="button" 
-    onclick="changeTemp('${weatherData.main.temp}');">
-    <i class="fa fa-thermometer thermo"></i>
-    <span class="thermo-span">Convert 
-    ${localStorage.getItem('tempUnit') === 'C' ? '&#176C to &#176F' : '&#176F to &#176C'}
-    </span></button></div>
-
-    <div class="share-feature">
-    <button id="share-button" type="button">
-    <i class="fa fa-facebook thermo"></i>
-    <span class="thermo-span">Share to Facebook</span>
-    </button></div>
-
-    <div class="switch-feature" onclick="switchMap('${res.geometry.lat}', '${res.geometry.lng}')">
-    <button id="switch-button" type="button">
-    <i class="fa ${localStorage.getItem('mapNext') === 'Earth' ? 
-    'fa-toggle-on' : 'fa-toggle-off'} thermo"></i>
-    <span class="thermo-span">Switch to ${localStorage.getItem('mapNext')  || 'Earth'}  View</span>
-    </button></div>
-
-    </div>
-
-    <div class="result-map" style="background-image: 
-    url('https://www.mapquestapi.com/staticmap/v5/map?key=IvNAwSUNmSxFBKN37pVED3RuRscWNnGk&locations=${res.geometry.lat},${res.geometry.lng}&zoom=14&defaultMarker=marker-end&type=${localStorage.getItem('mapType')  || 'map'}');">
-    </div>`
-    main.appendChild(result);
-
-    const landMark = document.createElement('div');
-    landMark.classList.add('land-mark');
-    main.appendChild(landMark);    
-
-
-    // display landmark images of the search to the result page
-    pixaImages.forEach((img) => {
-        const image = document.createElement('div');
-
-        image.style.backgroundImage = `url(${img})`;
-        image.addEventListener('click', () => {
-            displayLarge(img, pixaImages);
-        });
-
-        landMark.appendChild(image);
-    });
-    
-
-};
-
-
-
-function secondErrorPage(value){ 
-    form.addEventListener('submit', (e)=> {
-        e.preventDefault();
-        resultSearch(e.target.search.value);
-    });
-
-    notFound.innerHTML = `<h1>${value} Not Found!</h1>`;
-    main.appendChild(notFound);
-}
-
-
-function errorPage(value){ 
-    section.removeChild(intro);
-    main.removeChild(features);
-
-    section.classList.add('form-2');
-
-    form.classList.add('result-field');
-    form.addEventListener('submit', (e)=> {
-        e.preventDefault();
-        resultSearch(e.target.search.value);
-    });
-
-
-    input.classList.add('search-field2', 'remove-outline');
-    submit.classList.add('search-button2');
-
-    message.classList.add('message-2');
-
-    notFound.classList.add('not-found');
-    notFound.innerHTML = `<h1>${value} Not Found!</h1>`;
-    main.appendChild(notFound);
-}
-
-
-// runs when submit the search field
-async function placeSearch(value){    
-    loader.classList.add('loader');
-    body.appendChild(loader);
-    body.removeChild(main)
-    body.removeChild(footer);
-    messageDiv.innerHTML = '';
-
-    try{
-        const cagedata = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${value}&key=25538790e2f94fa1be1032d20c21e732&language=en&pretty=1&no_annotations=1`);
-        const weathermap = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${value}&APPID=1e32355a85c5965bc24316c27175c6a7`);
-        const pixabay = await fetch(`https://pixabay.com/api/?key=14281350-22ea61d1a8aab6d3cae824171&q=${value}&image_type=photo&category=places,buildings,travel`);
-        
-        const cagedataJson = await cagedata.json();
-        const weathermapJson = await weathermap.json();
-        const pixabayJson = await pixabay.json();
-
-        const onlyImages = pixabayJson.hits.map((hit) => hit.largeImageURL);
-
-        body.removeChild(loader);
-        body.appendChild(main)
-        body.appendChild(footer);
-        input.value = value;
-        if(cagedataJson.results[0] && weathermapJson){        
-            resultPage(cagedataJson.results[0], weathermapJson, onlyImages); 
-        } else {
-            errorPage(value); 
-        }
-    } catch(err){
-        body.removeChild(loader);
-        body.appendChild(main)
-        body.appendChild(footer);
-        errorPage(value);
-    }
-    
-};
-
-
-// runs when submit the search field
+// runs when  the user submits the search form
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     placeSearch(input.value.trim());
 });
 
 
+// runs when the user refreshes the page
+window.addEventListener('DOMContentLoaded', () => {
 
-// loads when the document is loaded
-window.addEventListener('load', () => {
+    // grabs the search term from the url
     const params = new URLSearchParams(window.location.search);
     const search = params.get('search');
     if(search){
+
+        // displays error when the search term exceeds 50 
+        // charaters. Also displays error message
         if(search.length > 50){
             submit.setAttribute('disabled', 'disabled');
             submit.classList.add('no-text');
 
             messageDiv.innerHTML = `<p id="error">You've exceeded 
             the 50 characters limit</p>`;
+
+        // sends search term for making AJAX request
         } else {
             submit.removeAttribute('disabled');
             submit.classList.remove('no-text');
@@ -565,15 +84,17 @@ window.addEventListener('load', () => {
             messageDiv.innerHTML = '';
             placeSearch(search);
         }
-        
+
+     // displays the landing page when search term 
+     // can not be found in the url 
     } else {
         if(!input.value.trim()){
-        submit.setAttribute('disabled', 'disabled');
-        submit.classList.add('no-text');
-    } else {
-        submit.removeAttribute('disabled');
-        submit.classList.remove('no-text');
-    }   
+            submit.setAttribute('disabled', 'disabled');
+            submit.classList.add('no-text');
+        }  else {
+            submit.removeAttribute('disabled');
+            submit.classList.remove('no-text');
+        }   
     }
 
 });

@@ -6,6 +6,7 @@ const header = document.createElement('header');
 const section = document.createElement('section');
 const intro = document.createElement('div');
 const form = document.createElement('form');
+const message = document.createElement('div');
 const features = document.createElement('div');
 const footer = document.createElement('footer');
 
@@ -30,13 +31,18 @@ section.appendChild(intro);
 
 form.innerHTML = `<div class="search">
 <input autocomplete="off" type="text" id="field-search"
-class="search-field" name="search"><input type="submit" 
-class="search-button" value="Explore"/></div>`;
+ class="search-field" name="search"><button type="submit" 
+class="search-button">Explore</button></div>`;
 // append form to section of the main div
 section.appendChild(form);
 
+message.classList.add('message');
+section.appendChild(message);
+
 // append section to the main div
 main.appendChild(section);
+
+
 
 features.classList.add('features');
 

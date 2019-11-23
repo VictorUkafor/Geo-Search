@@ -70,5 +70,3 @@ Victor Ukafor</a></p>`;
 // append footer to the body
 body.appendChild(footer);
 
-
-

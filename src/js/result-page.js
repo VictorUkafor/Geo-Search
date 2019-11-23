@@ -20,7 +20,7 @@ const changeTemp = (temp) => {
     // localStorage. Formula: C = K - 273.15
     if(!localStorage.getItem('tempUnit')){
         localStorage.setItem('tempUnit', 'C');
-        let tempValue = (temp - 273.15).toFixed(2);
+        const tempValue = (temp - 273.15).toFixed(2);
         localStorage.setItem('tempValue', tempValue);
 
         // render changes to the DOM
@@ -168,12 +168,8 @@ const backLarge = (image, allImages) => {
 // displays the result of the search to the 
 // page when search request is successfull
 const resultPage = (res, weatherData, pixaImages) => {
-    
-    section.removeChild(intro);
-    section.removeChild(form);
+    main.removeChild(section);
     main.removeChild(features);
-
-    section.classList.add('form-2');
 
     // sets the postcode and title of the search
     placeTitle.classList.add('place-title');
@@ -252,11 +248,13 @@ const resultPage = (res, weatherData, pixaImages) => {
 
     <div class="share-feature">
     <button id="share-button" type="button">
-    <i class="fa fa-facebook thermo"></i>
-    <span class="thermo-span">Share to Facebook</span>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=${window.location.href}" 
+    target="_blank"><i class="fa fa-facebook thermo"></i>
+    <span class="thermo-span">Share to Facebook</span></a>
     </button></div>
 
-    <div class="switch-feature" onclick="switchMap('${res.geometry.lat}', '${res.geometry.lng}')">
+    <div class="switch-feature" 
+    onclick="switchMap('${res.geometry.lat}', '${res.geometry.lng}')">
     <button id="switch-button" type="button">
     <i class="fa ${localStorage.getItem('mapNext') === 'Earth' ? 
     'fa-toggle-on' : 'fa-toggle-off'} thermo"></i>

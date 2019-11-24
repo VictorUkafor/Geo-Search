@@ -1,10 +1,4 @@
 // initialize required element for result page
-const notFound = document.createElement('div');
-const placeTitle = document.createElement('h1');
-const result = document.createElement('div');
-const largeImage = document.createElement('div');
-const loader = document.createElement('div');
-
 const input = document.querySelector('.search-field');
 const messageDiv = document.querySelector('.message');
 
@@ -76,29 +70,30 @@ const changeTemp = (temp) => {
 const switchMap = (lat, lng) => {
     const switchButton = document.querySelector('#switch-button');
     const mainMap = document.querySelector('.result-map');
+    const url = 'https://www.mapquestapi.com/staticmap/v5/map?';
+    const key = 'IvNAwSUNmSxFBKN37pVED3RuRscWNnGk'
+    const parameters = '&zoom=14&defaultMarker=marker-end';
 
     // changing the map view to earth view. Set map to earth view when localstorage
     // is destroyed.
     if(localStorage.getItem('mapType') === 'map' || !localStorage.getItem('mapType')){
         localStorage.setItem('mapType', 'hyb');
-        localStorage.setItem('mapNext', 'Map');
 
-        const url = `https://www.mapquestapi.com/staticmap/v5/map?key=IvNAwSUNmSxFBKN37pVED3RuRscWNnGk&locations=${lat},${lng}&zoom=14&defaultMarker=marker-end&type=hyb`;
+        const api = `${url}&key=${key}&locations=${lat},${lng}${parameters}&type=hyb`;
 
         // render changes to DOM
-        mainMap.setAttribute('style', `background-image: url('${url}');`);
+        mainMap.setAttribute('style', `background-image: url('${api}');`);
         switchButton.innerHTML = `<i class="fa fa-toggle-off thermo"></i>
         <span class="thermo-span">Switch to Map View</span>`;
 
         // changes earth view to map view
     } else {
         localStorage.setItem('mapType', 'map');
-        localStorage.setItem('mapNext', 'Earth');
 
-        const url = `https://www.mapquestapi.com/staticmap/v5/map?key=IvNAwSUNmSxFBKN37pVED3RuRscWNnGk&locations=${lat},${lng}&zoom=14&defaultMarker=marker-end&type=map`;
+        const api = `${url}&key=${key}&locations=${lat},${lng}${parameters}&type=map`;
 
         // render changes to DOM
-        mainMap.setAttribute('style', `background-image: url('${url}');`);
+        mainMap.setAttribute('style', `background-image: url('${api}');`);
         switchButton.innerHTML = `<i class="fa fa-toggle-on thermo"></i>
         <span class="thermo-span">Switch to Earth View</span>`;
     }
@@ -114,10 +109,9 @@ const displayLarge = (image, allImages) => {
     largeImage.classList.add('large-image');
     largeImage.innerHTML = `<div class="back">
     <i id="back-icon" class="fa fa-chevron-circle-left image-next"></i></div>
-    <div class="image" style="background-image:url(${image})"></div>
-    <div class="next"><i class="top fa fa-times image-next" onclick="removeLarge();"></i>
-    <i id="next-icon" class="bottom fa fa-chevron-circle-right image-next"></i></div>`
-    body.appendChild(largeImage);
+    <div class="image" style="background-image: url(${image.largeImageURL})"></div>
+    <div class="next"><i class="top fa fa-times image-next"></i>
+    <i id="next-icon" class="bottom fa fa-chevron-circle-right image-next"></i></div>`;
 
     // icon for previous image of the slide
     const backIcon = document.querySelector('#back-icon');
@@ -131,17 +125,23 @@ const displayLarge = (image, allImages) => {
         nextLarge(image, allImages);
     })
 
+    // icon for cancelling out of slide
+    const cancelIcon = document.querySelector('.top');
+    cancelIcon.addEventListener('click', () =>{
+        removeLarge();
+    })
+
     // remove every other markup to create a slide format
-    body.removeChild(main);
-    body.removeChild(footer);            
+    main.style.display = 'none';  
+    footer.style.display = 'none';         
 }
 
 
 // cancel out large image viewing
 const removeLarge = () => { 
-    body.appendChild(main);
-    body.removeChild(largeImage);;
-    body.appendChild(footer);
+    main.style.display = 'block';
+    largeImage.style.display = 'none';
+    footer.style.display = 'block';
 }
 
 
@@ -168,18 +168,25 @@ const backLarge = (image, allImages) => {
 // displays the result of the search to the 
 // page when search request is successfull
 const resultPage = (res, weatherData, pixaImages) => {
-    main.removeChild(section);
-    main.removeChild(features);
+    
+    section.classList.add('form-2');
+    intro.style.display = 'none';
+    form.classList.add('result-field');
+
+    features.style.display = 'none';
+
+    message.classList.add('message-2');
 
     // sets the postcode and title of the search
+    placeTitle.style.display = 'block';
     placeTitle.classList.add('place-title');
     placeTitle.innerHTML = `<span>Postal Code: 
     ${res.components.postcode ? res.components.postcode:'Not Available'}
     </span"><span class="right">Location: ${res.formatted}</span>`;
-    main.appendChild(placeTitle);
 
     // attaches the weather conditons of the place 
     // onto the result page
+    result.style.display = 'flex';
     result.classList.add('result');
     result.innerHTML = `<div class="result-features">
     <div class="weather-feature">
@@ -256,9 +263,10 @@ const resultPage = (res, weatherData, pixaImages) => {
     <div class="switch-feature" 
     onclick="switchMap('${res.geometry.lat}', '${res.geometry.lng}')">
     <button id="switch-button" type="button">
-    <i class="fa ${localStorage.getItem('mapNext') === 'Earth' ? 
+    <i class="fa ${localStorage.getItem('mapType') === 'hyb' ? 
     'fa-toggle-on' : 'fa-toggle-off'} thermo"></i>
-    <span class="thermo-span">Switch to ${localStorage.getItem('mapNext')  || 'Earth'}  View</span>
+    <span class="thermo-span">Switch to 
+    ${localStorage.getItem('mapType') === 'hyb' ? 'Earth': 'Map'}  view</span>
     </button></div>
 
     </div>
@@ -266,36 +274,38 @@ const resultPage = (res, weatherData, pixaImages) => {
     <div class="result-map" style="background-image: 
     url('https://www.mapquestapi.com/staticmap/v5/map?key=IvNAwSUNmSxFBKN37pVED3RuRscWNnGk&locations=${res.geometry.lat},${res.geometry.lng}&zoom=14&defaultMarker=marker-end&type=${localStorage.getItem('mapType')  || 'map'}');">
     </div>`
-    main.appendChild(result);
 
     // create and style the div containing the landmark images
-    const landMark = document.createElement('div');
-    landMark.classList.add('land-mark');
-    main.appendChild(landMark);    
-
+    const images = document.querySelector('.land-mark');
+    images.innerHTML = '';
 
     // iterate over the array of landmark images 
     // and append each of them to the div above
     pixaImages.forEach((img) => {
         const image = document.createElement('div');
 
-        image.style.backgroundImage = `url(${img})`;
+        image.style.backgroundImage = `url(${img.largeImageURL})`;
         image.addEventListener('click', () => {
             displayLarge(img, pixaImages);
         });
 
-        landMark.appendChild(image);
+        images.appendChild(image);
     });
+
     
+
+    notFound.style.display = 'none';
 
 };
 
 
 // displays error when a search fails
 const errorPage = (value) => { 
+    result.style.display = 'none';
+    placeTitle.style.display = 'none';
+    notFound.style.display = 'block';
     notFound.classList.add('not-found');
     notFound.innerHTML = `<h1>${value} Not Found!</h1>`;
-    main.appendChild(notFound);
 }
 
 
@@ -305,10 +315,10 @@ const errorPage = (value) => {
 const placeSearch = async(value) => {   
     
     // creates the spinner effect
+    main.style.display = 'none';
+    footer.style.display = 'none';
+    loader.style.display = 'block';
     loader.classList.add('loader');
-    body.appendChild(loader);
-    body.removeChild(main);
-    body.removeChild(footer);
     messageDiv.innerHTML = '';
 
     try{
@@ -320,16 +330,17 @@ const placeSearch = async(value) => {
         const weathermapJson = await weathermap.json();
         const pixabayJson = await pixabay.json();
 
-        const onlyImages = pixabayJson.hits.map((hit) => hit.largeImageURL);
+
+        console.log(pixabayJson, 'kkkk')
 
         // removes spinner after request
-        body.removeChild(loader);
-        body.appendChild(main)
-        body.appendChild(footer);
+        main.style.display = 'block';
+        footer.style.display = 'block';
+        loader.style.display = 'none';
         input.value = value;
 
         // displays result page on success
-        resultPage(cagedataJson.results[0], weathermapJson, onlyImages);
+        resultPage(cagedataJson.results[0], weathermapJson, pixabayJson.hits);
     } catch(err){
 
         // displays error page on failure

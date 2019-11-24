@@ -8,14 +8,21 @@ const intro = document.createElement('div');
 const form = document.createElement('form');
 const message = document.createElement('div');
 const features = document.createElement('div');
+const notFound = document.createElement('div');
+const placeTitle = document.createElement('h1');
+const result = document.createElement('div');
+const landMark = document.createElement('div');
+const largeImage = document.createElement('div');
+const loader = document.createElement('div');
 const footer = document.createElement('footer');
 
+ 
 
 main.setAttribute('id', 'centering');
 
+// append header to the main header div
 header.innerHTML = `<h1 class="logo"><a href="index.html">
 <span class="geo">Geo</span><span>Search</span></a></h1>`;
-// append header to the main header div
 main.appendChild(header);
 
 section.classList.add('content');
@@ -43,7 +50,6 @@ section.appendChild(message);
 main.appendChild(section);
 
 
-
 features.classList.add('features');
 
 // populate the features div with data
@@ -60,8 +66,29 @@ featureList.forEach((item) => {
 // append features to section div
 main.appendChild(features);
 
+// div for displaying errors
+main.appendChild(notFound);
+
+// for displaying the postcode and title of a place
+main.appendChild(placeTitle);
+
+// div for the result of a search. The weather
+// conditions and the map
+main.appendChild(result);
+
+// append landmark images to main
+landMark.classList.add('land-mark');
+main.appendChild(landMark);
+
 // append main to the body
 body.appendChild(main);
+
+// for displaying landmark image for 
+// large viewing
+body.appendChild(largeImage);
+
+// spinner for AJAX request
+body.appendChild(loader);
 
 footer.innerHTML = `<p>&copy; Copyright 2019. 
 &nbsp; All rights reserved. &nbsp; Designed 

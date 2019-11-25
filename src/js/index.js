@@ -1,19 +1,20 @@
 const submit = document.querySelector('.search-button');
-
+const clearIcon = document.querySelector('.cancel');
 
 // runs when user is typing in the search field
 input.addEventListener('input', () => {
     const value = input.value.trim();
     
         if(value){ 
-            
-        // enter search text into address bar as the user
-        // is typing    
-        const searchParams = new URLSearchParams(window.location.search);
-        searchParams.set("search", value);
-        const newRelativePathQuery = window.location.pathname + '?' 
-        + searchParams.toString();
-        history.pushState(null, '', newRelativePathQuery);
+            clearIcon.style.display = 'none';
+
+            // enter search text into address bar as the user
+            // is typing    
+            const searchParams = new URLSearchParams(window.location.search);
+            searchParams.set("search", value);
+            const newRelativePathQuery = window.location.pathname + '?' 
+            + searchParams.toString();
+            history.pushState(null, '', newRelativePathQuery);
 
         // checks if the search text is greater than 50
         // 50 characters is the maximum number allowed
@@ -56,6 +57,19 @@ input.addEventListener('input', () => {
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     placeSearch(input.value.trim());
+});
+
+
+input.addEventListener('blur', ()=>{
+    if(input.value){
+       clearIcon.style.display = 'block';  
+    }
+});
+
+
+clearIcon.addEventListener('click', ()=>{
+    input.value = '';
+    clearIcon.style.display = 'none';
 });
 
 

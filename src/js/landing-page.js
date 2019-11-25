@@ -15,7 +15,6 @@ const largeImage = document.createElement('div');
 const loader = document.createElement('div');
 const footer = document.createElement('footer');
 
- 
 
 main.setAttribute('id', 'centering');
 
@@ -55,13 +54,13 @@ features.classList.add('features');
 
 // populate the features div with data
 featureList.forEach((item) => {
-    const feature = document.createElement('div'); 
+  const feature = document.createElement('div');
 
-    feature.classList.add('feature');
-    feature.innerHTML = `<h3><i class="fa ${item.fa} fa-img"></i>
+  feature.classList.add('feature');
+  feature.innerHTML = `<h3><i class="fa ${item.fa} fa-img"></i>
     <span>${item.heading}</span></h3><p>${item.paragraph}</p>`;
 
-    features.appendChild(feature);
+  features.appendChild(feature);
 });
 
 // append features to section div
@@ -84,7 +83,7 @@ main.appendChild(landMark);
 // append main to the body
 body.appendChild(main);
 
-// for displaying landmark image for 
+// for displaying landmark image for
 // large viewing
 body.appendChild(largeImage);
 

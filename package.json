@@ -7,7 +7,8 @@
   "author": "Victor Ukafor <victorukafor@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "gulp": "gulp"
+    "gulp": "gulp",
+    "lint" : "./node_modules/.bin/eslint  ./src/js --fix"
   },
   "devDependencies": {
     "@babel/core": "7.7.2",

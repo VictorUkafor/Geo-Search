@@ -1,3 +1,6 @@
+/* Default styling for 1280 screen size */
+
+/* for making content center on the page */
 #centering{
     width: 80%;
     margin: 0 10%;
@@ -11,6 +14,8 @@ body{
     background-blend-mode: multiply;
 }
 
+
+/* header styles */
 .logo{
     font-family: 'Tangerine', serif;
     font-size: 3.5em;
@@ -34,6 +39,10 @@ body{
     word-spacing: -12px;
 }
 
+
+/* beginning of landing page */
+
+/* content at the middle of landing page */
 .content .intro{
     margin-top: 7em;
 }
@@ -64,7 +73,6 @@ body{
     margin-bottom: -0.8em;
 }
 
-
 .message-2{
     padding-top: 6em;
     width: 75%;
@@ -92,7 +100,6 @@ body{
     display: flex;
 }
 
-
 .search-field{
     font-family: 'Comfortaa';
     padding-left: 10px;
@@ -102,7 +109,6 @@ body{
     font-family: 'Roboto';
     outline: none;
 }
-
 
 .search-button{
     border: 0;
@@ -122,6 +128,7 @@ body{
 }
 
 
+/* the features section */
 .features{
     display: flex;
     flex-wrap: wrap;
@@ -130,12 +137,10 @@ body{
     margin-bottom: -2em;
 }
 
-
 .feature{
     width: 33.3%;
     margin-bottom: 2em;
 }
-
 
 .feature h3{
     text-align: left;
@@ -146,7 +151,6 @@ body{
     margin-bottom: 1.5em;
 }
 
-
 .feature p{
     text-align: left;
     color: #fff;
@@ -156,45 +160,16 @@ body{
     width: 90%;
 }
 
-
 .fa-img{
     color: #e63830;
     margin-right: 0.5em;
 }
 
 
-footer{
-    width: 100%;
-    height: 2em;
-    background-color: #e63830;
-    margin-bottom: 0;
-}
 
+/* beginning of result page */
 
-footer p{
-    width: 80%;
-    margin-left: 10%;
-    text-align: center;
-    color: #fff;
-    font-family: 'Roboto';
-    font-size: small;
-    font-weight: normal;
-    padding-top: 0.7em;
-    margin-bottom: 0;
-}
-
-
-footer a{
-    text-decoration: none;
-    color: #fff;
-}
-
-
-footer a:hover{
-    text-decoration: underline;
-    cursor: pointer;
-}
-
+/* modifing search field */
 .no-text{
     opacity: 0.8;
     cursor: default;
@@ -215,7 +190,6 @@ footer a:hover{
     font-family: 'Roboto';
 }
 
-
 .search-button2{
     border: 0;
     height: 3em;
@@ -232,40 +206,18 @@ footer a:hover{
     margin-bottom: 12em;
 }
 
-.result{
-    display: flex;
-    flex-wrap: wrap;
-    min-height: 35em;
-    width: 100%;
-    background: rgba(30, 30, 30, 0.6);
-    padding-left: 1em;
+
+/* result section */
+.place-title{
+    color: #fff;
+    font-family: 'Comfortaa';
+    font-weight: bold;
+    font-size: 1em;
+    text-transform: capitalize;
 }
 
-.land-mark{
-    margin-top: 0.3em;
-    display: flex;
-    flex-wrap: wrap;
-    padding-top: 2%;
-    width: 100%;
-}
-
-.land-mark div{
-    width: 22.5%;
-    height: 12em;
-    margin-left: 2%;
-    margin-bottom: 2%;
-    border-radius: 10px;
-    background-repeat: cover;
-    background-size: 100% 100%;
-}
-
-.land-mark div:hover{
-    margin-top: 1em;
-    margin-left: 3.25%;
-    width: 20%;
-    height: 10em;
-    opacity: 0.7;
-    cursor: pointer;
+.place-title .right{
+    float: right;
 }
 
 .not-found{
@@ -281,6 +233,15 @@ footer a:hover{
     word-break: break-all;
     word-break: break-word;
 
+}
+
+.result{
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 35em;
+    width: 100%;
+    background: rgba(30, 30, 30, 0.6);
+    padding-left: 1em;
 }
 
 .result-features{
@@ -341,14 +302,14 @@ footer a:hover{
 
 .cancel{
     position: absolute; 
-    margin-top: -1.3em;
+    margin-top: 0.35em;
     font-size: 1.6em !important;
-    opacity: 0.5;
+    opacity: 0.8;
     margin-left: 45%;
 }
 
 .cancel:hover{
-    opacity: 0.7;
+    opacity: 0.6;
 }
 
 .remove-outline{
@@ -445,7 +406,7 @@ footer a:hover{
     list-style-type: none;
     font-family: 'Comfortaa'; 
     font-weight: bold;
-    line-height: 2em;
+    line-height: 2.3em;
     font-size: 0.8em;
     padding-left: 2%;
     padding-right: 2%;
@@ -466,18 +427,36 @@ footer a:hover{
     float: inherit;
 }
 
-.place-title{
-    color: #fff;
-    font-family: 'Comfortaa';
-    font-weight: bold;
-    font-size: 1em;
-    text-transform: capitalize;
+/* landmark images section */
+.land-mark{
+    margin-top: 0.3em;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 2%;
+    width: 100%;
 }
 
-.place-title .right{
-    float: right;
+.land-mark div{
+    width: 22.5%;
+    height: 12em;
+    margin-left: 2%;
+    margin-bottom: 2%;
+    border-radius: 10px;
+    background-repeat: cover;
+    background-size: 100% 100%;
 }
 
+.land-mark div:hover{
+    margin-top: 1em;
+    margin-left: 3.25%;
+    width: 20%;
+    height: 10em;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+
+/* large image section */
 .large-image{
     display: flex;
     width: 100%;
@@ -528,16 +507,16 @@ footer a:hover{
 }
 
 
-
+/* loading spinner */
 .loader {
     display: inline-block;
     width: 10em;
     height: 10em;
     margin-top: 20%;
     margin-left: 40%;
-  }
+}
 
-  .loader:after {
+.loader:after {
     content: " ";
     display: block;
     width: 80%;
@@ -547,19 +526,52 @@ footer a:hover{
     border: 6px solid #fff;
     border-color: #fff transparent #fff transparent;
     animation: loader 1.2s linear infinite;
-  }
-  @keyframes loader {
+}
+
+@keyframes loader {
+
     0% {
       transform: rotate(0deg);
     }
+
     100% {
       transform: rotate(360deg);
     }
-  }
-  
+
+}
 
 
+/* footer section */
+footer{
+    width: 100%;
+    height: 2em;
+    background-color: #e63830;
+    margin-bottom: 0;
+}
 
+footer p{
+    width: 80%;
+    margin-left: 10%;
+    text-align: center;
+    color: #fff;
+    font-family: 'Roboto';
+    font-size: small;
+    font-weight: normal;
+    padding-top: 0.7em;
+    margin-bottom: 0;
+}
+
+
+footer a{
+    text-decoration: none;
+    color: #fff;
+}
+
+
+footer a:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
 
 
 
@@ -568,24 +580,59 @@ footer a:hover{
 
 /* small screens */
 @media screen and (max-width: 1100px) {
+    /* landing page */
     .features{
         width: 100%;
         margin-left: 0;
     }
 
-
     footer p{
         width: 90%;
         margin-left: 5%;
-    }    
+    }  
+    
+
+    /* result page */
+    .result{
+        width: 110%;
+        margin-left: -5%;
+    }
+
+    .result-features{
+        width: 30%;
+        margin: 1em 0; 
+        border-radius: 10px;   
+    }
+
+    .result-map{
+        width: 66%;
+    }
+
+    .land-mark{
+        width: 110%;
+        margin-left: -5%;
+    }
+
+    .large-image{
+        height: 95%;
+    }
 
 }
 
 
+
 /* tablets */
 @media screen and (max-width: 800px) {
+    header{
+        margin-left: 25%;
+    }
+
+    header .logo{
+        font-size: 6em;
+    }
+
     .content .intro{
-        margin-top: 9.5em;
+        margin-top: 7em;
     }  
 
     .content h1{
@@ -600,25 +647,214 @@ footer a:hover{
 
     .feature{
         width: 50%;
-        margin-bottom: 2em;
+        margin-bottom: 1.5em;
     }    
 
 
     .content{
-        margin-bottom: 7em;
+        margin-bottom: 6em;
     }    
+
+    footer{
+        margin-top: 3em;
+    }
 
     footer p{
         width: 90%;
         margin-left: 5%;
     }    
 
+   
+    /* result page */
+    .result-field{
+        width: 110%;
+    }
+
+    .form-2{
+        margin-top: -3em;
+        margin-left: 7%;
+    }
+
+    .cancel{
+        margin-left: 62%;
+    }
+
+    .message-2{
+        width: 100%;
+        margin-left: -10%;
+    }
+
+    .not-found{
+        padding-top: 5em;
+        height: 52em;
+    }
+
+    .place-title{
+        margin-top: 13em;
+    }
+
+    .result{
+        width: 116%;
+        margin-left: -9%;
+    }
+
+    .result-features{
+        width: 35%;   
+    }
+
+    .result-map{
+        width: 60%;
+    }
+
+    .land-mark{
+        margin-top: 2em;
+        width: 116%;
+        margin-left: -8%;
+    }
+
+    .land-mark div{
+        height: 9em;
+    }
+
 }
 
 
+/* tablets */
+@media screen and (max-width: 650px) {
+    header{
+        margin-left: 18%;
+    }
+
+    .form-2{
+        width: 100%;
+        margin-left: 2%;
+       
+    }
+
+    .cancel{
+        margin-left: 57%;
+        margin-top: 1em;
+    }
+
+    .result-field input{
+        height: 3.65em;
+        width: 70%; 
+        font-size: 1.30em;
+    }
+
+    .result-field button{
+        height: 3.8em;
+        width: 30%;
+        font-size: 1.3em;
+    }
+
+    .message-2{
+        font-size: 1.5em;
+    }
+
+    .place-title{
+        font-size: 1.5em;
+        line-height: 1.8em;
+    }
+    
+    .place-title .right{
+        padding-top: 1em;
+        float: left;
+    }
+
+    .result{
+        flex-direction: column;
+        width: 112%;
+        background-color: inherit;
+    }
+
+    .result-features{
+        width: 100%; 
+        padding-bottom: 2em;
+    }
+
+    .result-map{
+        width: 97%;
+    }
+
+    .weather-feature{
+        width: 90%;
+        margin-top: 1.5em;
+        margin-left: 5%;
+    }
+
+    .weather-cloud{
+        width: 50%;
+        height: 6em;
+    }
+
+    .cloud-description{
+        font-size: 2em;
+        line-height: 3em;
+    }
+
+    .condition-box{ 
+        padding-bottom: 1em;
+        
+    }
+    
+    .condition-box ul li{ 
+        line-height: 2.5em;
+        font-size: 1.6em;
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+
+    .temp-feature, 
+    .share-feature, 
+    .switch-feature{
+        height: 4em;
+        margin-left: 5%;
+        width: 90%;
+    }
+
+    #temp-button, 
+    #share-button, 
+    #switch-button{
+        font-size: 1.5em;
+    }
+
+    .land-mark div{
+        width: 44%;
+        height: 12em;
+        margin-left: 4%;
+        margin-bottom: 4%;
+    }
+
+    .large-image{
+        padding-top: 10em;
+    }
+
+    .large-image .image{
+        height: 28em;
+    }
+
+    footer{
+        height: 5em;
+    }
+
+    footer p{
+        font-size: 1.3em;
+    } 
+
+}
+
 
 /* phones */
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 450px) {
+    header{
+        margin-left: 20%;
+    }
+
+    header .logo{
+        font-size: 4em;
+    }
+
     #centering{
         width: 94%;
         margin: 0 3%;
@@ -627,6 +863,14 @@ footer a:hover{
 
     .content .intro{
         margin-top: 3.5em;
+    }  
+
+    .content .intro h1{
+        font-size: 1.6em;
+    }  
+
+    .content .intro p{
+        font-size: 1em;
     }  
 
 
@@ -656,8 +900,8 @@ footer a:hover{
     }  
     
     .content form{
-        width: 90%;
-        margin: 30px 5%;
+        width: 96%;
+        margin: 30px 2%;
         margin-top: 30px;
     }    
 
@@ -666,7 +910,15 @@ footer a:hover{
         margin-left: 5%;
         margin-bottom: 1.5em;
     }   
-    
+
+    .feature h3{
+        font-size: 1.1em;
+    }  
+
+    .feature p{
+        font-size: 0.9em;
+    }  
+
     .search-field{
         padding-left: 5px;
         width: 70%;
@@ -674,13 +926,124 @@ footer a:hover{
     
     .search-button{
         width: 30%;
-    }    
+    } 
+    
+
+    .result{
+        width: 90%;
+        margin-left: 0;
+    }
+    
+    .cancel{
+        margin-left: 55%;
+        font-size: 2em;
+        margin-top: 0.25em;
+    }
+
+    .place-title{
+        font-size: 0.9em;
+        line-height: 1.2em;
+        margin-left: 5%;
+    }
+
+    .result-field input{
+        height: 2.7em;
+        width: 70%; 
+        font-size: 0.8em;
+    }
+
+    .result-field button{
+        height: 2.8em;
+        width: 30%;
+        font-size: 0.8em;
+    }
+
+    .weather-cloud{
+        width: 40%;
+        height: 5em;
+    }
+
+    .cloud-description{
+        font-size: 1.2em;
+        line-height: 1.5em;
+    }
+
+    .condition-box ul li{ 
+        line-height: 2.3em;
+        font-size: 0.9em;
+    }
+
+    .temp-feature, 
+    .share-feature, 
+    .switch-feature{
+        height: 3em;
+        margin-left: 5%;
+        width: 90%;
+    }
+
+    #temp-button, 
+    #share-button, 
+    #switch-button{
+        font-size: 1em;
+    }
+
+    .result{
+        width: 100%;
+        margin-left: 0.5%;
+    }
+
+    .result-features{
+        width: 90%; 
+        padding-bottom: 2em;
+    }
+
+    .result-map{
+        width: 85%;
+        height: 17em;
+    }
+
+    .land-mark{
+        margin-left: 3.5%;
+        width: 100%;
+    }
+
+    .land-mark div{
+        width: 40%;
+        height: 6em;
+        margin-left: 4%;
+        margin-bottom: 4%;
+    }
+
+    .land-mark div:hover{
+        margin-top: 1em;
+        width: 36%;
+        height: 5em;
+    }
+
+    .large-image .image{
+        height: 20em;
+    }
+
+    .image-next{
+        font-size: 1.7em !important;
+    }
+
+    #next-icon, #back-icon{
+        margin-top: 3em;
+        margin-left: 20%;
+    }
+
+    #back-icon{
+        margin-top: 4em;
+    }
+
 
     footer{
         height: 3.5em;
     }
 
     footer p{
+        font-size: 0.8em;
         line-height: 1.5em;
     }    
 

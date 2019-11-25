@@ -36,11 +36,13 @@ places around the globe. Share your experience</p>`;
 // append intro to section of the main div
 section.appendChild(intro);
 
+// create and append form to section of the main div
 form.innerHTML = `<div class="search">
 <input autocomplete="off" type="text" id="field-search"
- class="search-field" name="search"><button type="submit" 
-class="search-button">Explore</button></div>`;
-// append form to section of the main div
+ class="search-field" name="search"><i class="fa 
+ fa-times-circle cancel" style="display: none">
+ </i><button type="submit" class="search-button">
+ Explore</button></div>`;
 section.appendChild(form);
 
 message.classList.add('message');

@@ -172,10 +172,9 @@ const resultPage = (res, weatherData, pixaImages) => {
     section.classList.add('form-2');
     intro.style.display = 'none';
     form.classList.add('result-field');
-
     features.style.display = 'none';
-
     message.classList.add('message-2');
+    clearIcon.style.display = 'block';
 
     // sets the postcode and title of the search
     placeTitle.style.display = 'block';
@@ -216,11 +215,6 @@ const resultPage = (res, weatherData, pixaImages) => {
     <span class="condition-name">Humidity:</span>
     <span class="condition-value">${weatherData.main.humidity}
     <span class="condition-unit">%</span></span></li>
-
-    <li><i class="fa fa-circle condition-symbol"></i>
-    <span class="condition-name">Precipitation:</span>
-    <span class="condition-value">${weatherData.precipitation || ''}
-    <span class="condition-unit">${weatherData.precipitation ? 'mm':'N/A'}</span></span></li>
 
     <li><i class="fa fa-circle condition-symbol"></i>
     <span class="condition-name">Wind Speed:</span>
@@ -329,9 +323,6 @@ const placeSearch = async(value) => {
         const cagedataJson = await cagedata.json();
         const weathermapJson = await weathermap.json();
         const pixabayJson = await pixabay.json();
-
-
-        console.log(pixabayJson, 'kkkk')
 
         // removes spinner after request
         main.style.display = 'block';

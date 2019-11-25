@@ -315,6 +315,11 @@ footer a:hover{
     border-radius: 10px;
 }
 
+.share-feature a{
+    text-decoration: none;
+    color: #fff;
+}
+
 .switch-feature{
     width: 80%;
     height: 6.3%;
@@ -332,13 +337,6 @@ footer a:hover{
     margin-top: 1em;
     background-repeat: cover;
     background-size: 100% 100%;
-}
-
-.map-marker{
-    color: #e63830;
-    font-size: 2.5em !important;
-    margin-left: 45%;
-    margin-top: 3em;
 }
 
 .cancel{
@@ -397,7 +395,9 @@ footer a:hover{
 }
 
 
-#temp-button:hover, #share-button:hover{
+#temp-button:hover,
+#share-button:hover,
+#switch-button:hover{
     cursor: pointer;
     opacity: 0.9;
 }

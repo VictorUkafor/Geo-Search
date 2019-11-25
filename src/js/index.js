@@ -1,5 +1,4 @@
 const submit = document.querySelector('.search-button');
-const clearIcon = document.querySelector('.cancel');
 
 // runs when user is typing in the search field
 input.addEventListener('input', () => {

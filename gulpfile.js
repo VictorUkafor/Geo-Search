@@ -32,14 +32,15 @@ gulp.task('processImage', done => {
     done();
 });
 
+
 // task for processing JS files
 gulp.task('processJS', done => {
     gulp.src('./src/js/*.*')
     .pipe(eslint())
     .pipe(eslint({ fix: true }))
-    //.pipe(eslint.format())
+    .pipe(eslint.format())
     //.pipe(eslint.failAfterError())
-    .pipe(babel({ presets: ['@babel/env']}))
+    .pipe(babel())
     .pipe(uglify())
     .pipe(gulp.dest('./dist/js'));
     done();
@@ -75,8 +76,9 @@ gulp.task('watch', ['browserSync'], () => {
 // task for running for all tasks concurrently  
 gulp.task('default', (callback) => {
   runSequence([
-      'processHTML', 'processJS', 
-      'processImage', 'processCSS','babelPolyfill'
+      'processHTML', 
+      'processJS', 'processImage', 
+      'processCSS', 'babelPolyfill'
     ], 'watch', callback);
 });
 

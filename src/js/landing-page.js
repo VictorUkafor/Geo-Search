@@ -1,4 +1,3 @@
-
 // initialize elements for the landing page
 const body = document.querySelector('#body');
 const main = document.createElement('div');
@@ -40,7 +39,7 @@ section.appendChild(intro);
 form.innerHTML = `<div class="search">
 <input autocomplete="off" type="text" id="field-search"
  class="search-field" name="search"><i class="fa 
- fa-times-circle cancel" style="display: none">
+ fa-times-circle cancel" style="display: none;">
  </i><button type="submit" class="search-button">
  Explore</button></div>`;
 section.appendChild(form);
@@ -98,4 +97,3 @@ and developed by <a href="https://github.com/VictorUkafor">
 Victor Ukafor</a></p>`;
 // append footer to the body
 body.appendChild(footer);
-

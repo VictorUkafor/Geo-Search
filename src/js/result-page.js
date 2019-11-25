@@ -1,6 +1,7 @@
 // initialize required element for result page
 const input = document.querySelector('.search-field');
 const messageDiv = document.querySelector('.message');
+const clearIcon = document.querySelector('.cancel');
 
 
 
@@ -340,4 +341,3 @@ const placeSearch = async(value) => {
     }
     
 };
-

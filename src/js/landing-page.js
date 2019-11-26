@@ -25,6 +25,7 @@ main.appendChild(header);
 
 section.classList.add('content');
 
+
 intro.classList.add('intro');
 intro.innerHTML = `<h1><span>Welcome to </span>
 <span class="bg-logo"><span class="geo">Geo</span>
@@ -37,8 +38,9 @@ section.appendChild(intro);
 // create and append form to section of the main div
 form.innerHTML = `<div class="search">
 <input autocomplete="off" type="text" id="field-search"
- class="search-field" name="search"><i class="fa 
- fa-times-circle cancel" style="display: none;">
+ class="search-field" name="search" 
+ placeholder="Enter your location. For example: Lagos, Nigeria">
+ <i class="fa fa-times-circle cancel">
  </i><button type="submit" class="search-button">
  Explore</button></div>`;
 section.appendChild(form);
@@ -49,21 +51,8 @@ section.appendChild(message);
 // append section to the main div
 main.appendChild(section);
 
-
-features.classList.add('features');
-
-// populate the features div with data
-featureList.forEach((item) => {
-  const feature = document.createElement('div');
-
-  feature.classList.add('feature');
-  feature.innerHTML = `<h3><i class="fa ${item.fa} fa-img"></i>
-    <span>${item.heading}</span></h3><p>${item.paragraph}</p>`;
-
-  features.appendChild(feature);
-});
-
 // append features to section div
+features.classList.add('features');
 main.appendChild(features);
 
 // div for displaying errors
@@ -96,3 +85,10 @@ and developed by <a href="https://github.com/VictorUkafor">
 Victor Ukafor</a></p>`;
 // append footer to the body
 body.appendChild(footer);
+
+
+export {
+  body, main, header, section, intro, form, message,
+  features, notFound, placeTitle, result, landMark,
+  largeImage, loader, footer,
+};

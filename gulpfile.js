@@ -1,11 +1,13 @@
 const gulp = require('gulp');
 const autoprefixer = require('gulp-autoprefixer');
 const csso = require('gulp-csso');
-const eslint = require('gulp-eslint');
-const babel = require('gulp-babel');
 const uglify = require('gulp-uglify-es').default;
 const runSequence = require('run-sequence').use(gulp);
 const browserSync = require('browser-sync').create();
+const browserify = require('browserify');
+const babelify = require('babelify');
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
 
 
 // task for processing HTML files
@@ -33,37 +35,31 @@ gulp.task('processImage', done => {
 });
 
 
-// task for processing JS files
+// task for processing js files
 gulp.task('processJS', done => {
-    gulp.src('./src/js/*.*')
-    .pipe(eslint())
-    .pipe(eslint({ fix: true }))
-    .pipe(eslint.format())
-    //.pipe(eslint.failAfterError())
-    .pipe(babel())
+    browserify('./src/js/index.js', { debug: true })
+    .transform(babelify)
+    .bundle()
+    .pipe(source('index.js'))
+    .pipe(buffer())
     .pipe(uglify())
     .pipe(gulp.dest('./dist/js'));
     done();
-  });
+});
 
-gulp.task('babelPolyfill', done => {
-    gulp.src('node_modules/babel-polyfill/browser.js')
-    .pipe(gulp.dest('dist/node_modules/babel-polyfill'));
-    done();
-});  
 
 // task for browser for any changes
 gulp.task('browserSync', done => {
     browserSync.init({
-      server: './dist',
-      port: 8080,
-      ui: { port: 8081 }
+        server: './dist',
+        port: 8080,
+        ui: { port: 8081 }
     });
     done();
 }); 
 
 // task for watching for changes
-gulp.task('watch', ['browserSync'], () => {
+gulp.task('watch', ['browserSync'], done => {
     gulp.watch('src/js/*.js', ['processJS']);
     gulp.watch('src/*.html', ['processHTML']);
     gulp.watch('src/css/*.css', ['processCSS']);
@@ -71,14 +67,16 @@ gulp.task('watch', ['browserSync'], () => {
     gulp.watch('dist/js/*.js', browserSync.reload);
     gulp.watch('dist/*.html', browserSync.reload);
     gulp.watch('dist/css/*.css', browserSync.reload);
+    done();
 });
 
 // task for running for all tasks concurrently  
 gulp.task('default', (callback) => {
   runSequence([
-      'processHTML', 
-      'processJS', 'processImage', 
-      'processCSS', 'babelPolyfill'
+      'processHTML',
+      'processJS', 
+      'processImage', 
+      'processCSS'
     ], 'watch', callback);
 });
 

@@ -8,14 +8,22 @@
   "license": "MIT",
   "scripts": {
     "gulp": "gulp",
-    "lint" : "./node_modules/.bin/eslint  ./src/js --fix"
+    "lint": "./node_modules/.bin/eslint  ./src/js --fix "
+  },
+  "dependencies": {
+    "babel-polyfill": "6.26.0"
   },
   "devDependencies": {
     "@babel/core": "7.7.2",
+    "@babel/plugin-transform-modules-commonjs": "^7.7.4",
     "@babel/preset-env": "^7.7.1",
     "babel-cli": "6.26.0",
     "babel-eslint": "^10.0.3",
+    "babel-plugin-add-module-exports": "^1.0.2",
     "babel-preset-env": "1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babelify": "^10.0.0",
     "browser-sync": "2.26.7",
     "browserify": "16.5.0",
     "eslint": "^6.6.0",
@@ -32,19 +40,19 @@
     "gulp-uglify": "3.0.2",
     "gulp-uglify-es": "^2.0.0",
     "run-sequence": "2.2.1",
+    "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
   },
-  "browserslist": [
-    "> 1%",
-    "ie >= 8",
-    "edge >= 15",
-    "ie_mob >= 10",
-    "ff >= 45",
-    "chrome >= 45",
-    "safari >= 7",
-    "opera >= 23",
-    "ios >= 7",
-    "android >= 4",
-    "bb >= 10"
-  ]
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "@babel/preset-env"
+          ]
+        }
+      ]
+    ]
+  }
 }

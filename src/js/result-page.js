@@ -1,8 +1,14 @@
+const {
+  main, section, intro, form, message, features,
+  notFound, placeTitle, result, largeImage,
+  loader, footer,
+} = require('./landing-page.js');
+
 // initialize required element for result page
 const input = document.querySelector('.search-field');
-const messageDiv = document.querySelector('.message');
 const clearIcon = document.querySelector('.cancel');
 
+// for map api
 const mapApi = 'https://www.mapquestapi.com/staticmap/v5/map?';
 const mapApiKey = 'IvNAwSUNmSxFBKN37pVED3RuRscWNnGk';
 const mapParam = '&zoom=14&defaultMarker=marker-end';
@@ -23,13 +29,13 @@ const changeTemp = (temp) => {
 
     // render changes to the DOM
     tempItem.innerHTML = `<i class="fa fa-circle condition-symbol"></i>
-        <span class="condition-name">Temperature:</span>
-        <span class="condition-value">${localStorage.getItem('tempValue')}
-        <span class="condition-unit">
-        &#176;C</span></span>`;
+      <span class="condition-name">Temperature:</span>
+      <span class="condition-value">${localStorage.getItem('tempValue')}
+      <span class="condition-unit">
+      &#176;C</span></span>`;
 
     tempButton.innerHTML = `<i class="fa fa-thermometer thermo"></i>
-        <span class="thermo-span">Convert &#176C to &#176F</span>`;
+      <span class="thermo-span">Convert &#176C to &#176F</span>`;
 
     // convert Fahrenheit to Celsius and saves to
     // localStorage. Formula: C = (F - 32) * 5/9
@@ -40,13 +46,13 @@ const changeTemp = (temp) => {
 
     // render changes to DOM
     tempItem.innerHTML = `<i class="fa fa-circle condition-symbol"></i>
-        <span class="condition-name">Temperature:</span>
-        <span class="condition-value">${localStorage.getItem('tempValue')}
-        <span class="condition-unit">
-        &#176;C</span></span>`;
+      <span class="condition-name">Temperature:</span>
+      <span class="condition-value">${localStorage.getItem('tempValue')}
+      <span class="condition-unit">
+      &#176;C</span></span>`;
 
     tempButton.innerHTML = `<i class="fa fa-thermometer thermo"></i>
-        <span class="thermo-span">Convert &#176C to &#176F</span>`;
+      <span class="thermo-span">Convert &#176C to &#176F</span>`;
 
     // convert Celsius to Fahrenheit and saves to
     // localStorage. Formula: F = (F * 9/5) + 32
@@ -57,13 +63,13 @@ const changeTemp = (temp) => {
 
     // render changes to the DOM
     tempItem.innerHTML = `<i class="fa fa-circle condition-symbol"></i>
-        <span class="condition-name">Temperature:</span>
-        <span class="condition-value">${localStorage.getItem('tempValue')}
-        <span class="condition-unit">
-        &#176;F</span></span>`;
+      <span class="condition-name">Temperature:</span>
+      <span class="condition-value">${localStorage.getItem('tempValue')}
+      <span class="condition-unit">
+      &#176;F</span></span>`;
 
     tempButton.innerHTML = `<i class="fa fa-thermometer thermo"></i>
-        <span class="thermo-span">Convert &#176F to &#176C</span>`;
+      <span class="thermo-span">Convert &#176F to &#176C</span>`;
   }
 };
 
@@ -84,7 +90,7 @@ const switchMap = (lat, lng) => {
     // render changes to DOM
     mainMap.setAttribute('style', `background-image: url('${api}');`);
     switchButton.innerHTML = `<i class="fa fa-toggle-off thermo"></i>
-        <span class="thermo-span">Switch to Map View</span>`;
+      <span class="thermo-span">Switch to Map View</span>`;
 
     // changes earth view to map view
   } else {
@@ -95,10 +101,16 @@ const switchMap = (lat, lng) => {
     // render changes to DOM
     mainMap.setAttribute('style', `background-image: url('${api}');`);
     switchButton.innerHTML = `<i class="fa fa-toggle-on thermo"></i>
-        <span class="thermo-span">Switch to Earth View</span>`;
+      <span class="thermo-span">Switch to Satellite View</span>`;
   }
 };
 
+
+// declare functions so as to avoid
+// no-use-before-define of eslint
+let removeLarge = '';
+let nextLarge = '';
+let backLarge = '';
 
 // display landmark image in large size. Accept a single image(image)
 // to be enlarge and the entire array of the images found
@@ -137,7 +149,7 @@ const displayLarge = (image, allImages) => {
 
 
 // cancel out large image viewing
-const removeLarge = () => {
+removeLarge = () => {
   main.style.display = 'block';
   largeImage.style.display = 'none';
   footer.style.display = 'block';
@@ -145,7 +157,7 @@ const removeLarge = () => {
 
 
 // shows the next large image
-const nextLarge = (image, allImages) => {
+nextLarge = (image, allImages) => {
   const index = allImages.indexOf(image);
   const newIndex = (index >= (allImages.length - 1))
     ? 0 : (index + 1);
@@ -155,7 +167,7 @@ const nextLarge = (image, allImages) => {
 
 
 // shows the previous large image
-const backLarge = (image, allImages) => {
+backLarge = (image, allImages) => {
   const index = allImages.indexOf(image);
   const newIndex = (index === 0)
     ? allImages.length - 1 : index - 1;
@@ -167,11 +179,17 @@ const backLarge = (image, allImages) => {
 // displays the result of the search to the
 // page when search request is successfull
 const resultPage = (res, weatherData, pixaImages) => {
+  
+  //set page title
+  document.title = `GeoSearch - ${res.formatted}`;
+
+  // set result elements
   section.classList.add('form-2');
   intro.style.display = 'none';
   form.classList.add('result-field');
   features.style.display = 'none';
   message.classList.add('message-2');
+  clearIcon.classList.add('cancel-2');
   clearIcon.style.display = 'block';
 
   // sets the postcode and title of the search
@@ -238,8 +256,7 @@ const resultPage = (res, weatherData, pixaImages) => {
     </ul></div></div>
 
     <div class="temp-feature">
-    <button id="temp-button" type="button" 
-    onclick="changeTemp('${weatherData.main.temp}');">
+    <button id="temp-button" type="button">
     <i class="fa fa-thermometer thermo"></i>
     <span class="thermo-span">Convert 
     ${localStorage.getItem('tempUnit') === 'C' ? '&#176C to &#176F' : '&#176F to &#176C'}
@@ -252,19 +269,32 @@ const resultPage = (res, weatherData, pixaImages) => {
     <span class="thermo-span">Share to Facebook</span></a>
     </button></div>
 
-    <div class="switch-feature" 
-    onclick="switchMap('${res.geometry.lat}', '${res.geometry.lng}')">
+    <div class="switch-feature">
     <button id="switch-button" type="button">
     <i class="fa ${localStorage.getItem('mapType') === 'hyb'
     ? 'fa-toggle-on' : 'fa-toggle-off'} thermo"></i>
     <span class="thermo-span">Switch to 
-    ${localStorage.getItem('mapType') === 'hyb' ? 'Earth' : 'Map'}  view</span>
+    ${localStorage.getItem('mapType') === 'hyb' ? 'Satellite' : 'Map'}  View</span>
     </button></div>
 
     </div>
     <div class="result-map" style="background-image: 
     url('${mapApi}&key=${mapApiKey}&locations=${res.geometry.lat},${res.geometry.lng}${mapParam}&type=${localStorage.getItem('mapType') || 'map'}');">
     </div>`;
+
+
+  // add click event to temperature conversion button
+  const tempFeature = document.querySelector('.temp-feature');
+  tempFeature.addEventListener('click', () => {
+    changeTemp(weatherData.main.temp);
+  });
+
+  // add click event to map conversion button
+  const switchFeature = document.querySelector('.switch-feature');
+  switchFeature.addEventListener('click', () => {
+    switchMap(res.geometry.lat, res.geometry.lng);
+  });
+
 
   // create and style the div containing the landmark images
   const images = document.querySelector('.land-mark');
@@ -307,7 +337,7 @@ const placeSearch = async (value) => {
   footer.style.display = 'none';
   loader.style.display = 'block';
   loader.classList.add('loader');
-  messageDiv.innerHTML = '';
+  message.innerHTML = '';
 
   try {
     const cagedataApi = 'https://api.opencagedata.com/geocode/v1/json?';
@@ -315,20 +345,20 @@ const placeSearch = async (value) => {
     const cagedataParams = '&language=en&pretty=1&no_annotations=1';
 
     const weathermapApi = 'http://api.openweathermap.org/data/2.5/weather?';
-    const weathermapKey = '1e32355a85c5965bc24316c27175c6a7'
+    const weathermapKey = '1e32355a85c5965bc24316c27175c6a7';
 
     const pixabayApi = 'https://pixabay.com/api/?';
     const pixbayKey = '14281350-22ea61d1a8aab6d3cae824171';
     const pixabayParams = '&image_type=photo&category=places,buildings,travel';
 
     const [cagedata, weathermap, pixabay] = await Promise.all([
-        fetch(`${cagedataApi}q=${value}&key=${cagedataKey}${cagedataParams}`),
-        fetch(`${weathermapApi}q=${value}&APPID=${weathermapKey}`),
-        fetch(`${pixabayApi}key=${pixbayKey}&q=${value}${pixabayParams}`)
+      fetch(`${cagedataApi}q=${value}&key=${cagedataKey}${cagedataParams}`),
+      fetch(`${weathermapApi}q=${value}&APPID=${weathermapKey}`),
+      fetch(`${pixabayApi}key=${pixbayKey}&q=${value}${pixabayParams}`),
     ]);
 
     const [cagedataJson, weathermapJson, pixabayJson] = await Promise.all([
-        cagedata.json(), weathermap.json(), pixabay.json()
+      cagedata.json(), weathermap.json(), pixabay.json(),
     ]);
 
     // removes spinner after request
@@ -345,3 +375,6 @@ const placeSearch = async (value) => {
     errorPage(value);
   }
 };
+
+
+export { input, clearIcon, placeSearch };

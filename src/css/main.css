@@ -93,7 +93,7 @@ body{
 }
 
 .message #error{
-    color: red;
+    color: #e63830;
 }
 
 .search{

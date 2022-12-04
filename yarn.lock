@@ -1688,10 +1688,10 @@ babel-plugin-transform-strict-mode@^6.24.1:
     babel-runtime "^6.22.0"
     babel-types "^6.24.1"
 
-babel-polyfill@^6.26.0:
+babel-polyfill@6.26.0, babel-polyfill@^6.26.0:
   version "6.26.0"
-  resolved "https://registry.npm.taobao.org/babel-polyfill/download/babel-polyfill-6.26.0.tgz#379937abc67d7895970adc621f284cd966cf2153"
-  integrity sha1-N5k3q8Z9eJWXCtxiHyhM2WbPIVM=
+  resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.26.0.tgz#379937abc67d7895970adc621f284cd966cf2153"
+  integrity sha512-F2rZGQnAdaHWQ8YAoeRbukc7HS9QgdgeyJ0rQDd485v9opwuPvjpPFcOOT/WmkKTdgy9ESgSPXDcTNpzrGr6iQ==
   dependencies:
     babel-runtime "^6.26.0"
     core-js "^2.5.0"
@@ -2723,9 +2723,9 @@ decamelize@^1.1.1:
   integrity sha1-9lNNFRSCabIDUue+4m9QH5oZEpA=
 
 decode-uri-component@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.npm.taobao.org/decode-uri-component/download/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
-  integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.2.tgz#e69dbe25d37941171dd540e024c444cd5188e1e9"
+  integrity sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==
 
 deep-extend@^0.6.0:
   version "0.6.0"
